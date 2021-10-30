@@ -32,4 +32,10 @@
         android:hint="체중을 입력해주세요"
         android:inputType="numberDecimal" />
 
+    <Button
+        android:id="@+id/btnCalculation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="확인하기" />
+
 </LinearLayout>
