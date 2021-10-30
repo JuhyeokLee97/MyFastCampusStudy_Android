@@ -4,38 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="20dp"
     android:orientation="vertical"
+    android:paddingHorizontal="20dp"
     tools:context=".basic.CalculationBmiMainActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="신장"
+        android:layout_marginTop="20dp"
+        android:text="@string/text_height"
+        android:textColor="@color/custom_black"
         android:textSize="20sp" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="신장을 입력해주세요"
+        android:layout_marginTop="10dp"
+        android:hint="@string/text_hint_of_input_height"
         android:inputType="numberDecimal" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="체중"
+        android:layout_marginTop="20dp"
+        android:text="@string/text_weight"
+        android:textColor="@color/custom_black"
         android:textSize="20sp" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="체중을 입력해주세요"
+        android:layout_marginTop="10dp"
+        android:hint="@string/text_hint_of_input_weight"
         android:inputType="numberDecimal" />
 
     <Button
         android:id="@+id/btnCalculation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="확인하기" />
+        android:layout_marginTop="30dp"
+        android:text="@string/text_success_btn" />
 
 </LinearLayout>

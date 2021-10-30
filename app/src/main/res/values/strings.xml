@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MyFastCampusStudy_Android</string>
+    <string name="text_height">신장</string>
+    <string name="text_weight">체중</string>
+    <string name="text_success_btn">확인하기</string>
+    <string name="text_hint_of_input_height">신장을 입력해주세요.</string>
+    <string name="text_hint_of_input_weight">체중을 입력해주세요.</string>
 </resources>
