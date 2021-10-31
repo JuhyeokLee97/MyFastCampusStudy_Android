@@ -1,4 +1,4 @@
-package com.example.myfastcampusstudy_android.basic
+package com.example.myfastcampusstudy_android.basic.bmi_calculator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

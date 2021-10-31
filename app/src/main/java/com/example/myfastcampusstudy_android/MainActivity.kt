@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
-import com.example.myfastcampusstudy_android.basic.CalculationBmiMainActivity
+import com.example.myfastcampusstudy_android.basic.bmi_calculator.CalculationBmiMainActivity
 
 class MainActivity : AppCompatActivity() {
     lateinit var  btnBasic: ImageButton
