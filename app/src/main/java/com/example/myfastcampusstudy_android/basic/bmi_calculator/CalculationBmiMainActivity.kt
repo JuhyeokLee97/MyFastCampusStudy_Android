@@ -32,6 +32,8 @@ class CalculationBmiMainActivity : AppCompatActivity() {
             Log.d(TAG, "입력된 Height: $height \t Weight: $weight")
 
             val intent = Intent(this, ResultActivity::class.java)
+            intent.putExtra("height", height)
+            intent.putExtra("weight", weight)
             startActivity(intent)
         }
     }
