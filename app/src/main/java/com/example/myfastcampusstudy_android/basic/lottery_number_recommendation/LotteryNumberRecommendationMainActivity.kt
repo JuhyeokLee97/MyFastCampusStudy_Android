@@ -41,6 +41,17 @@ class LotteryNumberRecommendationMainActivity : AppCompatActivity() {
 
         initBtnRun()
         initBtnAddNumber()
+        initBtnClear()
+    }
+
+    private fun initBtnClear() {
+        btnClear.setOnClickListener {
+            didRun = false
+            tvNumberList.forEach {
+                it.isVisible = false
+            }
+        }
+
     }
 
     private fun initBtnAddNumber() {
@@ -69,17 +80,29 @@ class LotteryNumberRecommendationMainActivity : AppCompatActivity() {
     private fun initBtnRun() {
         btnRun.setOnClickListener {
             val list = getRandomNumber()
+            didRun = true
+
+            list.forEachIndexed { index, value ->
+                val tvNumber = tvNumberList[index]
+                tvNumber.text = value.toString()
+                tvNumber.isVisible = true
+            }
         }
     }
 
     private fun getRandomNumber(): List<Int> {
         val numberList = mutableListOf<Int>()
             .apply {
-                for (i in 1..45)
+                for (i in 1..45) {
+                    if (pickNumberSet.contains(i))
+                        continue
                     this.add(i)
+                }
             }
 
         numberList.shuffle()
-        return numberList.subList(0, 6).sorted()
+        val resultNumberList =
+            pickNumberSet.toList() + numberList.subList(0, 6 - pickNumberSet.size)
+        return resultNumberList.sorted()
     }
 }
