@@ -48,14 +48,6 @@
         app:layout_constraintTop_toBottomOf="@id/btnAddNumber"
         app:layout_constraintVertical_bias=".15">
 
-        <TextView
-            android:id="@+id/tvFirstNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="1"
-            android:textSize="16sp"
-            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvFirstNumber"
@@ -64,7 +56,9 @@
             android:layout_margin="5dp"
             android:text="1"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/tvSecondNumber"
@@ -73,7 +67,9 @@
             android:layout_margin="5dp"
             android:text="1"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/tvThirdNumber"
@@ -82,7 +78,9 @@
             android:layout_margin="5dp"
             android:text="1"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/tvFourthNumber"
@@ -91,7 +89,9 @@
             android:layout_margin="5dp"
             android:text="1"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/tvFifthNumber"
@@ -100,7 +100,9 @@
             android:layout_margin="5dp"
             android:text="1"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/tvSixthNumber"
@@ -109,7 +111,9 @@
             android:layout_margin="5dp"
             android:text="1"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:visibility="visible" />
     </LinearLayout>
 
     <Button
