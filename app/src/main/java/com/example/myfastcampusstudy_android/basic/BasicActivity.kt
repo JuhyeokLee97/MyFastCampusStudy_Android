@@ -7,10 +7,12 @@ import android.widget.Button
 import com.example.myfastcampusstudy_android.R
 import com.example.myfastcampusstudy_android.basic.bmi_calculator.CalculationBmiMainActivity
 import com.example.myfastcampusstudy_android.basic.lottery_number_recommendation.LotteryNumberRecommendationMainActivity
+import com.example.myfastcampusstudy_android.basic.secret_diary.SecretDiaryMainActivity
 
 class BasicActivity : AppCompatActivity() {
     lateinit var btnMoveToCalculationBmiMainActivity: Button
     lateinit var btnMoveToLotteryNumberRecommendationMainActivity: Button
+    lateinit var btnMoveToSecretDiaryMainActivity: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +31,11 @@ class BasicActivity : AppCompatActivity() {
             findViewById(R.id.btnMoveToLotteryNumberRecommendation)
         btnMoveToLotteryNumberRecommendationMainActivity.setOnClickListener {
             startActivity(Intent(this, LotteryNumberRecommendationMainActivity::class.java))
+        }
+
+        btnMoveToSecretDiaryMainActivity = findViewById(R.id.btnMoveToSecretDiary)
+        btnMoveToSecretDiaryMainActivity.setOnClickListener {
+            startActivity(Intent(this, SecretDiaryMainActivity::class.java))
         }
     }
 }
