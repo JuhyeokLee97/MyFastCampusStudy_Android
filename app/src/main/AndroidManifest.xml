@@ -10,7 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFastCampusStudy_Android">
         <activity
-            android:name=".basic.CalculationBmiMainActivity"
+            android:name=".basic.BasicActivity"
+            android:exported="true" />
+        <activity
+            android:name=".basic.lottery_number_recommendation.LotteryNumberRecommendationMainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".basic.bmi_calculator.ResultActivity"
+            android:exported="true" />
+        <activity
+            android:name=".basic.bmi_calculator.CalculationBmiMainActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
