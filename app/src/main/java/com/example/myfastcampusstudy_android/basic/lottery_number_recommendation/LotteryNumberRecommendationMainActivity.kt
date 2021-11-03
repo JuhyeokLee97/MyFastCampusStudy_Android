@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.example.myfastcampusstudy_android.R
 
@@ -46,6 +47,7 @@ class LotteryNumberRecommendationMainActivity : AppCompatActivity() {
 
     private fun initBtnClear() {
         btnClear.setOnClickListener {
+            pickNumberSet.clear()
             didRun = false
             tvNumberList.forEach {
                 it.isVisible = false
@@ -72,6 +74,7 @@ class LotteryNumberRecommendationMainActivity : AppCompatActivity() {
             val tvNumber = tvNumberList[pickNumberSet.size]
             tvNumber.text = numberPicker.value.toString()
             tvNumber.isVisible = true
+            setNumberBackground(numberPicker.value, tvNumber)
 
             pickNumberSet.add(numberPicker.value)
         }
@@ -86,6 +89,7 @@ class LotteryNumberRecommendationMainActivity : AppCompatActivity() {
                 val tvNumber = tvNumberList[index]
                 tvNumber.text = value.toString()
                 tvNumber.isVisible = true
+                setNumberBackground(value, tvNumber)
             }
         }
     }
@@ -104,5 +108,20 @@ class LotteryNumberRecommendationMainActivity : AppCompatActivity() {
         val resultNumberList =
             pickNumberSet.toList() + numberList.subList(0, 6 - pickNumberSet.size)
         return resultNumberList.sorted()
+    }
+
+    private fun setNumberBackground(number: Int, tvNumber: TextView) {
+        when (number) {
+            in 1..10 -> tvNumber.background =
+                ContextCompat.getDrawable(this, R.drawable.circle_yellow)
+            in 11..20 -> tvNumber.background =
+                ContextCompat.getDrawable(this, R.drawable.circle_blue)
+            in 21..30 -> tvNumber.background =
+                ContextCompat.getDrawable(this, R.drawable.circle_red)
+            in 31..40 -> tvNumber.background =
+                ContextCompat.getDrawable(this, R.drawable.circle_gray)
+            else -> tvNumber.background = ContextCompat.getDrawable(this, R.drawable.circle_green)
+
+        }
     }
 }
