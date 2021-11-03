@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">MyFastCampusStudy_Android</string>
+
+    <!-- BMI 계산기 -->
+    <string name="text_bmi_calculation_title">BIM 계산기</string>
+    <string name="text_height">신장</string>
+    <string name="text_weight">체중</string>
+    <string name="text_success_btn">확인하기</string>
+    <string name="text_hint_of_input_height">신장을 입력해주세요.</string>
+    <string name="text_hint_of_input_weight">체중을 입력해주세요.</string>
+
+    <!-- 로또 번호 추천 -->
+    <string name="text_lottery_number_recommendation">로또번호 추첨기</string>
+    <string name="text_add_number">번호 추가하기</string>
+    <string name="text_clear_numbers">초기화</string>
+    <string name="text_create_random_numbers">자동 생성 시작</string>
 </resources>
