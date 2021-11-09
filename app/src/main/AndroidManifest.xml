@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFastCampusStudy_Android">
         <activity
+            android:name=".basic.secret_diary.DiaryMainActivity"
+            android:exported="true" />
+        <activity
             android:name=".basic.secret_diary.SecretDiaryMainActivity"
             android:exported="true" />
         <activity
