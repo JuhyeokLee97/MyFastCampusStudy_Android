@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import com.example.myfastcampusstudy_android.R
 import com.example.myfastcampusstudy_android.basic.bmi_calculator.CalculationBmiMainActivity
+import com.example.myfastcampusstudy_android.basic.calculator.CalculatorMainActivity
 import com.example.myfastcampusstudy_android.basic.lottery_number_recommendation.LotteryNumberRecommendationMainActivity
 import com.example.myfastcampusstudy_android.basic.secret_diary.SecretDiaryMainActivity
 
@@ -36,6 +37,15 @@ class BasicActivity : AppCompatActivity() {
         btnMoveToSecretDiaryMainActivity = findViewById(R.id.btnMoveToSecretDiary)
         btnMoveToSecretDiaryMainActivity.setOnClickListener {
             startActivity(Intent(this, SecretDiaryMainActivity::class.java))
+        }
+
+        findViewById<Button>(R.id.btnMoveToCalculator).setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    CalculatorMainActivity::class.java
+                )
+            )
         }
     }
 }
