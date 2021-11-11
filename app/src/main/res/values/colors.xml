@@ -8,4 +8,11 @@
     <color name="black">#FF000000</color>
     <color name="custom_black">#FF222222</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="button_gray">#FFF2F2F2</color>
+    <color name="button_press_gray">#FFE2E2E2</color>
+    <color name="button_background_white">#FFFCFCFC</color>
+    <color name="text_color">#FF555555</color>
+    <color name="green">#FF7AAF3B</color>
+    <color name="green_press">#FF618C2F</color>
 </resources>
