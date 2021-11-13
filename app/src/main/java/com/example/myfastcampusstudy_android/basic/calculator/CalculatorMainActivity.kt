@@ -20,6 +20,8 @@ class CalculatorMainActivity : AppCompatActivity() {
     private var isOperator = false
     private var hasOperator = false
 
+    private lateinit var historyLayout: View
+    private lateinit var historyLinearLayout: View
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calculator_main)
@@ -30,7 +32,8 @@ class CalculatorMainActivity : AppCompatActivity() {
     private fun initView() {
         tvExpression = findViewById(R.id.tvExpression)
         tvResult = findViewById(R.id.tvResult)
-
+        historyLayout = findViewById(R.id.historyLayout)
+        historyLinearLayout = findViewById(R.id.historyLinearLayout)
     }
 
     fun btnClicked(v: View) {
@@ -55,6 +58,7 @@ class CalculatorMainActivity : AppCompatActivity() {
         }
     }
 
+
     fun clearBtnClicked(v: View) {
         tvResult.text = ""
         tvExpression.text = ""
@@ -63,7 +67,19 @@ class CalculatorMainActivity : AppCompatActivity() {
     }
 
     fun historyBtnClicked(v: View) {
-        Toast.makeText(this, "History Button is clicked", Toast.LENGTH_SHORT).show()
+        historyLayout.visibility = View.VISIBLE
+        // TODO: 디비에서 모든 기록 가져오기
+        // TODO: 뷰에 모든 기록 할당하기
+    }
+
+    fun closeHistoryBtnClicked(v: View) {
+        historyLayout.visibility = View.GONE
+
+    }
+
+    fun historyClearBtnClicked(v: View) {
+        // TODO 디비에서 모든 기록 삭제
+        // TODO 뷰에서 모든 기록 삭제
     }
 
     fun resultBtnClicked(v: View) {
