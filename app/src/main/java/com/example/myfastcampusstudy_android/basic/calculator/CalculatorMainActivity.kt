@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.example.myfastcampusstudy_android.R
+import java.lang.NumberFormatException
 
 class CalculatorMainActivity : AppCompatActivity() {
     private lateinit var tvExpression: TextView
@@ -33,7 +34,6 @@ class CalculatorMainActivity : AppCompatActivity() {
     }
 
     fun btnClicked(v: View) {
-        Toast.makeText(this, "Button is clicked", Toast.LENGTH_SHORT).show()
         when (v.id) {
             R.id.btnNum0 -> numberBtnClicked("0")
             R.id.btnNum1 -> numberBtnClicked("1")
@@ -56,7 +56,10 @@ class CalculatorMainActivity : AppCompatActivity() {
     }
 
     fun clearBtnClicked(v: View) {
-        Toast.makeText(this, "Clear Button is clicked", Toast.LENGTH_SHORT).show()
+        tvResult.text = ""
+        tvExpression.text = ""
+        isOperator = false
+        hasOperator = false
     }
 
     fun historyBtnClicked(v: View) {
@@ -64,7 +67,29 @@ class CalculatorMainActivity : AppCompatActivity() {
     }
 
     fun resultBtnClicked(v: View) {
-        Toast.makeText(this, "Result Button is clicked", Toast.LENGTH_SHORT).show()
+        val expressionTexts = tvExpression.text.split(" ")
+        if (tvExpression.text.isEmpty() || expressionTexts.size == 1) {
+            return
+        }
+
+        if (expressionTexts.size != 3 && hasOperator) { // "숫자" + "연산자"
+            Toast.makeText(this, "아직 완성되지 않은 수식입니다.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (expressionTexts[0].isNumber().not() || expressionTexts[2].isNumber().not()) {
+            Toast.makeText(this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val expressionText = tvExpression.text.toString()
+        val resultText = calculateExpression()
+
+        tvResult.text = ""
+        tvExpression.text = resultText
+
+        isOperator = false
+        hasOperator = false
     }
 
     private fun numberBtnClicked(number: String) {
@@ -82,8 +107,7 @@ class CalculatorMainActivity : AppCompatActivity() {
         }
 
         tvExpression.append(number)
-
-        // TODO tvResult 실시간으로 계산 결과를 넣어야 하는 기능
+        tvResult.text = calculateExpression()
 
     }
 
@@ -117,6 +141,35 @@ class CalculatorMainActivity : AppCompatActivity() {
 
         isOperator = true
         hasOperator = true
+    }
+
+    private fun calculateExpression(): String {
+        var expressionTexts = tvExpression.text.split(" ")
+        if (hasOperator.not() || expressionTexts.size != 3) {    // 예외처리
+            return ""
+        } else if (expressionTexts[0].isNumber().not() || expressionTexts[2].isNumber().not()) {
+            return ""
+        }
+        val exp1 = expressionTexts[0].toBigInteger()
+        val exp2 = expressionTexts[2].toBigInteger()
+        val op = expressionTexts[1]
+        return when (op) {
+            "+" -> (exp1 + exp2).toString()
+            "-" -> (exp1 - exp2).toString()
+            "*" -> (exp1 * exp2).toString()
+            "/" -> (exp1 / exp2).toString()
+            "%" -> (exp1 % exp2).toString()
+            else -> ""
+        }
+    }
+
+    fun String.isNumber(): Boolean {
+        return try {
+            this.toBigInteger()
+            true
+        } catch (e: NumberFormatException) {
+            false
+        }
     }
 
 }
