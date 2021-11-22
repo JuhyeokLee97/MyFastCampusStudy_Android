@@ -1,9 +1,12 @@
 package com.example.myfastcampusstudy_android.basic.picture_frame
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
@@ -14,7 +17,7 @@ class PictureFrameMainActivity : AppCompatActivity() {
 
     lateinit var btnStartPhotoFrameMode: AppCompatButton
     lateinit var btnAddPhoto: AppCompatButton
-
+    lateinit var imageViewList: List<ImageView>
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +34,18 @@ class PictureFrameMainActivity : AppCompatActivity() {
 
         initAddPhotoButton()
         initStartPhotoFrameModeButton()
+        initImageViewList()
+    }
+
+    private fun initImageViewList() {
+        imageViewList = mutableListOf<ImageView>().apply {
+            add(findViewById(R.id.ivPhoto11))
+            add(findViewById(R.id.ivPhoto12))
+            add(findViewById(R.id.ivPhoto13))
+            add(findViewById(R.id.ivPhoto21))
+            add(findViewById(R.id.ivPhoto22))
+            add(findViewById(R.id.ivPhoto23))
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -45,6 +60,7 @@ class PictureFrameMainActivity : AppCompatActivity() {
                 ) == PackageManager.PERMISSION_GRANTED
                 -> {
                     // TODO: 권한이 잘 부여되었기 때문에 갤러리에서 사진을 선택하는 기능
+                    navigatePhoto()
                 }
 
                 // 권한이 부여되지 않은 상황이에서, 교육용 팝업을 보여줘야 하는 경우
@@ -62,6 +78,34 @@ class PictureFrameMainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when (requestCode) {
+            1000 -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    navigatePhoto()
+                } else {
+                    Toast.makeText(this, "권한을 거부하셨습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+            else -> {
+
+            }
+        }
+    }
+
+    private fun navigatePhoto() {
+        // Action GET Content: 이 인텐트는 SAP를 실행시켜서 컨테츠를 가져오는 안드로ㅓ이드 내장 액티비티를 시작한다
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"     // 이미지만 필터링
+        startActivityForResult(intent, 2000)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
