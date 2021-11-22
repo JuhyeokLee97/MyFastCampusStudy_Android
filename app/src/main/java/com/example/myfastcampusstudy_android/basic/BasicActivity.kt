@@ -8,12 +8,14 @@ import com.example.myfastcampusstudy_android.R
 import com.example.myfastcampusstudy_android.basic.bmi_calculator.CalculationBmiMainActivity
 import com.example.myfastcampusstudy_android.basic.calculator.CalculatorMainActivity
 import com.example.myfastcampusstudy_android.basic.lottery_number_recommendation.LotteryNumberRecommendationMainActivity
+import com.example.myfastcampusstudy_android.basic.picture_frame.PictureFrameMainActivity
 import com.example.myfastcampusstudy_android.basic.secret_diary.SecretDiaryMainActivity
 
 class BasicActivity : AppCompatActivity() {
     lateinit var btnMoveToCalculationBmiMainActivity: Button
     lateinit var btnMoveToLotteryNumberRecommendationMainActivity: Button
     lateinit var btnMoveToSecretDiaryMainActivity: Button
+    lateinit var btnMoveToPictureFrameMainActivity: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +48,11 @@ class BasicActivity : AppCompatActivity() {
                     CalculatorMainActivity::class.java
                 )
             )
+        }
+
+        btnMoveToPictureFrameMainActivity = findViewById(R.id.btnMoveToPictureFrame)
+        btnMoveToPictureFrameMainActivity.setOnClickListener {
+            startActivity(Intent(this, PictureFrameMainActivity::class.java))
         }
     }
 }
