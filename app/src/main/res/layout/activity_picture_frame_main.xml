@@ -6,4 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".basic.picture_frame.PictureFrameMainActivity">
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnStartPhotoFrameMode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="전자액자 실행하기"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAddPhoto"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="사진 추가하기"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnStartPhotoFrameMode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
