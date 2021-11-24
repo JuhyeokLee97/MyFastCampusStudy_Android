@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFastCampusStudy_Android">
         <activity
+            android:name=".basic.picture_frame.PhotoFrameActivity"
+            android:exported="true" />
+        <activity
             android:name=".basic.picture_frame.PictureFrameMainActivity"
             android:exported="true" />
         <activity
