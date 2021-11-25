@@ -33,8 +33,6 @@ class PictureFrameMainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     private fun initView() {
 
-        btnStartPhotoFrameMode = findViewById(R.id.btnStartPhotoFrameMode)
-
         initAddPhotoButton()
         initStartPhotoFrameModeButton()
         initImageViewList()
@@ -80,6 +78,19 @@ class PictureFrameMainActivity : AppCompatActivity() {
                     )
                 }
             }
+        }
+    }
+
+    private fun initStartPhotoFrameModeButton() {
+        btnStartPhotoFrameMode = findViewById(R.id.btnStartPhotoFrameMode)
+        btnStartPhotoFrameMode.setOnClickListener {
+            val intent = Intent(this, PhotoFrameActivity::class.java)
+            imageUriList.forEachIndexed { index, uri ->
+                intent.putExtra("photo$index", uri.toString())
+            }
+            intent.putExtra("photoListSize", imageUriList.size)
+
+            startActivity(intent)
         }
     }
 
@@ -153,8 +164,5 @@ class PictureFrameMainActivity : AppCompatActivity() {
 
     }
 
-
-    private fun initStartPhotoFrameModeButton() {
-    }
 
 }
