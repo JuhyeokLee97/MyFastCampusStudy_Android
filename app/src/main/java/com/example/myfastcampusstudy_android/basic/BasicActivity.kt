@@ -4,18 +4,21 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.appcompat.widget.AppCompatButton
 import com.example.myfastcampusstudy_android.R
 import com.example.myfastcampusstudy_android.basic.bmi_calculator.CalculationBmiMainActivity
 import com.example.myfastcampusstudy_android.basic.calculator.CalculatorMainActivity
 import com.example.myfastcampusstudy_android.basic.lottery_number_recommendation.LotteryNumberRecommendationMainActivity
 import com.example.myfastcampusstudy_android.basic.picture_frame.PictureFrameMainActivity
+import com.example.myfastcampusstudy_android.basic.pomodoro_timer.PomodoroTimerMainActivity
 import com.example.myfastcampusstudy_android.basic.secret_diary.SecretDiaryMainActivity
 
 class BasicActivity : AppCompatActivity() {
-    lateinit var btnMoveToCalculationBmiMainActivity: Button
-    lateinit var btnMoveToLotteryNumberRecommendationMainActivity: Button
-    lateinit var btnMoveToSecretDiaryMainActivity: Button
-    lateinit var btnMoveToPictureFrameMainActivity: Button
+    lateinit var btnMoveToCalculationBmiMainActivity: AppCompatButton
+    lateinit var btnMoveToLotteryNumberRecommendationMainActivity: AppCompatButton
+    lateinit var btnMoveToSecretDiaryMainActivity: AppCompatButton
+    lateinit var btnMoveToPictureFrameMainActivity: AppCompatButton
+    lateinit var btnMoveToPomodoroTimerMainActivity: AppCompatButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +56,11 @@ class BasicActivity : AppCompatActivity() {
         btnMoveToPictureFrameMainActivity = findViewById(R.id.btnMoveToPictureFrame)
         btnMoveToPictureFrameMainActivity.setOnClickListener {
             startActivity(Intent(this, PictureFrameMainActivity::class.java))
+        }
+
+        btnMoveToPomodoroTimerMainActivity = findViewById(R.id.btnMoveToPomodoroTimer)
+        btnMoveToPomodoroTimerMainActivity.setOnClickListener {
+            startActivity(Intent(this, PomodoroTimerMainActivity::class.java))
         }
     }
 }

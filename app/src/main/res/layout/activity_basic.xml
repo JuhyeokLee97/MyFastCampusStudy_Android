@@ -82,5 +82,19 @@
             app:layout_constraintStart_toStartOf="@id/btnMoveToSecretDiary"
             app:layout_constraintTop_toBottomOf="@id/btnMoveToSecretDiary" />
 
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnMoveToPomodoroTimer"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginVertical="16dp"
+            android:background="#FF00B9EF"
+            android:text="뽀모도토 타이머"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/btnMoveToCalculator"
+            app:layout_constraintStart_toStartOf="@id/btnMoveToCalculator"
+            app:layout_constraintTop_toBottomOf="@id/btnMoveToCalculator" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
