@@ -82,6 +82,7 @@
             app:layout_constraintStart_toStartOf="@id/btnMoveToSecretDiary"
             app:layout_constraintTop_toBottomOf="@id/btnMoveToSecretDiary" />
 
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnMoveToPomodoroTimer"
             android:layout_width="0dp"
