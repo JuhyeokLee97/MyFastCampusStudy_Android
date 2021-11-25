@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import com.example.myfastcampusstudy_android.R
+import java.util.*
 import kotlin.concurrent.timer
 
 class PhotoFrameActivity : AppCompatActivity() {
@@ -14,13 +15,14 @@ class PhotoFrameActivity : AppCompatActivity() {
     private lateinit var ivPhoto: ImageView
     private lateinit var ivBackgroundPhoto: ImageView
 
+    private var timer : Timer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_frame)
 
         initView()
         getPhotoUriFromPrevIntent()
-        startTimer()
     }
 
     private fun initView() {
@@ -38,7 +40,7 @@ class PhotoFrameActivity : AppCompatActivity() {
     }
 
     private fun startTimer() {
-        timer(period = 2500) {
+        timer = timer(period = 2500) {
             runOnUiThread {
                 val current = currentPosition
                 val next = (currentPosition + 1) % (photoList.size)
@@ -56,6 +58,24 @@ class PhotoFrameActivity : AppCompatActivity() {
                 currentPosition = next
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        timer?.cancel()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        startTimer()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        timer?.cancel()
     }
 
 }
