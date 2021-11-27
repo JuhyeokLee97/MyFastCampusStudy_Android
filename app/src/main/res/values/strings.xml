@@ -14,4 +14,19 @@
     <string name="text_add_number">번호 추가하기</string>
     <string name="text_clear_numbers">초기화</string>
     <string name="text_create_random_numbers">자동 생성 시작</string>
+    
+    <!-- 비밀 다이어리 -->
+    <string name="text_secret_diary_title">비밀 다이어리</string>
+    <string name="text_secret_diary_logo">The Secret Garden</string>
+    
+    <!-- 계산기 -->
+    <string name="text_calculator_title">계산기</string>
+    
+    <!-- 전자액자 -->
+    <string name="text_picture_frame_title">전자액자</string>
+    <string name="text_picture_frame_add_photo">사진 추가하기</string>
+    <string name="text_picture_frame_execute">전자액자 실행하기</string>
+    
+    <!-- 뽀모도로 타이머 -->
+    <string name="text_pomodoro_text">뽀모도로 타이머</string>
 </resources>
