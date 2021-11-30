@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/pomodoro_red"
     tools:context=".basic.pomodoro_timer.PomodoroTimerMainActivity">
 
     <TextView
         android:id="@+id/tvRemainMinutes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="00"
-        android:textSize="40sp"
+        android:text="00'"
+        android:textColor="@color/white"
+        android:textSize="120sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tvRemainSeconds"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -23,21 +26,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="00"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="@id/tvRemainMinutes"
+        android:textColor="@color/white"
+        android:textSize="70sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvRemainMinutes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tvRemainMinutes"
-        app:layout_constraintTop_toTopOf="@id/tvRemainMinutes" />
+        app:layout_constraintStart_toEndOf="@id/tvRemainMinutes" />
 
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
+        android:layout_marginHorizontal="60dp"
+        android:thumb="@drawable/ic_thumb"
         android:max="60"
+        android:progressDrawable="@color/transparent"
+        android:tickMark="@drawable/shape_tick_mark"
         android:min="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvRemainMinutes"/>
+        app:layout_constraintTop_toBottomOf="@id/tvRemainMinutes" />
 </androidx.constraintlayout.widget.ConstraintLayout>

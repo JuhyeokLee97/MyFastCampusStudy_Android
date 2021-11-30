@@ -61,16 +61,26 @@ class PomodoroTimerMainActivity : AppCompatActivity() {
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                currentCountDownTimer?.cancel()
-                currentCountDownTimer = null
+                stopCountDown()
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 seekBar ?: return
 
-                startCountDown()
+                if(seekBar.progress == 0){
+                    stopCountDown()
+                }else {
+                    startCountDown()
+                }
             }
         })
+    }
+
+    private fun stopCountDown() {
+        currentCountDownTimer?.cancel()
+        currentCountDownTimer = null
+
+        soundPool.autoPause()
     }
 
 
@@ -109,7 +119,7 @@ class PomodoroTimerMainActivity : AppCompatActivity() {
         val remainSeconds = remainMillis / 1000
         val remainMinutes = remainSeconds / 60
 
-        tvRemainMinutes.text = "%02d".format(remainMinutes)
+        tvRemainMinutes.text = "%02d'".format(remainMinutes)
         tvRemainSeconds.text = "%02d".format(remainSeconds % 60)
     }
 

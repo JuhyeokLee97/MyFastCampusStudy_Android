@@ -15,4 +15,6 @@
     <color name="text_color">#FF555555</color>
     <color name="green">#FF7AAF3B</color>
     <color name="green_press">#FF618C2F</color>
+    <color name="pomodoro_red">#FFD32F2F</color>
+    <color name="transparent">#00000000</color>
 </resources>
