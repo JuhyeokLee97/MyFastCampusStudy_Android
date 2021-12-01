@@ -6,4 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".basic.recorder.RecorderMainActivity">
 
+
+    <com.example.myfastcampusstudy_android.basic.recorder.RecordButton
+        android:id="@+id/btnRecord"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FF0000"
+        android:text="RESET"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/btnRecord"
+        app:layout_constraintEnd_toStartOf="@id/btnRecord"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnRecord" />
+
+    <TextView
+        android:id="@+id/tvRecordTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="00:00"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/btnRecord"
+        app:layout_constraintEnd_toEndOf="@id/btnRecord"
+        app:layout_constraintStart_toStartOf="@id/btnRecord" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
