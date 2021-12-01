@@ -11,6 +11,7 @@ import com.example.myfastcampusstudy_android.basic.calculator.CalculatorMainActi
 import com.example.myfastcampusstudy_android.basic.lottery_number_recommendation.LotteryNumberRecommendationMainActivity
 import com.example.myfastcampusstudy_android.basic.picture_frame.PictureFrameMainActivity
 import com.example.myfastcampusstudy_android.basic.pomodoro_timer.PomodoroTimerMainActivity
+import com.example.myfastcampusstudy_android.basic.recorder.RecorderMainActivity
 import com.example.myfastcampusstudy_android.basic.secret_diary.SecretDiaryMainActivity
 
 class BasicActivity : AppCompatActivity() {
@@ -19,6 +20,7 @@ class BasicActivity : AppCompatActivity() {
     lateinit var btnMoveToSecretDiaryMainActivity: AppCompatButton
     lateinit var btnMoveToPictureFrameMainActivity: AppCompatButton
     lateinit var btnMoveToPomodoroTimerMainActivity: AppCompatButton
+    lateinit var btnMoveToRecorderMainActivity: AppCompatButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,5 +64,11 @@ class BasicActivity : AppCompatActivity() {
         btnMoveToPomodoroTimerMainActivity.setOnClickListener {
             startActivity(Intent(this, PomodoroTimerMainActivity::class.java))
         }
+
+        btnMoveToRecorderMainActivity = findViewById(R.id.btnMoveToRecorder)
+        btnMoveToRecorderMainActivity.setOnClickListener {
+            startActivity(Intent(this, RecorderMainActivity::class.java))
+        }
+
     }
 }

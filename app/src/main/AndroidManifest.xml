@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFastCampusStudy_Android">
         <activity
+            android:name=".basic.recorder.RecorderMainActivity"
+            android:exported="true" />
+        <activity
             android:name=".basic.pomodoro_timer.PomodoroTimerMainActivity"
             android:exported="true" />
         <activity
