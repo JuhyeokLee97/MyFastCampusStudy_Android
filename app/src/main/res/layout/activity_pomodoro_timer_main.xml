@@ -7,6 +7,15 @@
     android:background="@color/pomodoro_red"
     tools:context=".basic.pomodoro_timer.PomodoroTimerMainActivity">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvRemainMinutes"
+        android:src="@drawable/img_tomato_stem"/>
+
     <TextView
         android:id="@+id/tvRemainMinutes"
         android:layout_width="wrap_content"
