@@ -45,4 +45,7 @@ dependencies {
 
     implementation 'androidx.room:room-runtime:2.2.6'
     kapt "androidx.room:room-compiler:2.2.6"
+
+    // 네이버 지도
+    implementation 'com.naver.maps:map-sdk:3.13.0'
 }
