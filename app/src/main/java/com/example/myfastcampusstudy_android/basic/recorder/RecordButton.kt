@@ -15,7 +15,7 @@ class RecordButton(context: Context, attrs: AttributeSet) : AppCompatImageButton
             State.ON_RECORDING -> {
                 setImageResource(R.drawable.ic_stop)
             }
-            State.AFTER_RECODING -> {
+            State.AFTER_RECORDING -> {
                 setImageResource(R.drawable.ic_play)
             }
             State.ON_PLAYING -> {
