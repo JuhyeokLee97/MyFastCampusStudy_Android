@@ -48,4 +48,6 @@ dependencies {
 
     // 네이버 지도
     implementation 'com.naver.maps:map-sdk:3.13.0'
+    // 현 위치 가져오기
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 }
