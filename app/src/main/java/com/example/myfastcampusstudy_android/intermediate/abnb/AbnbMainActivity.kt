@@ -3,6 +3,7 @@ package com.example.myfastcampusstudy_android.intermediate.abnb
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.viewpager2.widget.ViewPager2
 import com.example.myfastcampusstudy_android.R
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
@@ -21,6 +22,10 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
     }
     private lateinit var naverMap: NaverMap
     private lateinit var locationSource: FusedLocationSource
+    private val viewPager: ViewPager2 by lazy {
+        findViewById(R.id.houseViewPager)
+    }
+    private val viewPagerAdapter = HouseViewPagerAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +33,8 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.onCreate(savedInstanceState)
 
         mapView.getMapAsync(this)
+
+        viewPager.adapter = viewPagerAdapter
     }
 
     override fun onMapReady(map: NaverMap) {
@@ -71,6 +78,7 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
                         response.body()?.let { dto ->
                             updateMarker(dto.items)
+                            viewPagerAdapter.submitList(dto.items)
                         }
                     }
 
