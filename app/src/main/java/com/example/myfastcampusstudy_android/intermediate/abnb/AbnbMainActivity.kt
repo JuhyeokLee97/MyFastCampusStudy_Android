@@ -11,6 +11,7 @@ import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
 import com.naver.maps.map.util.MarkerIcons
+import com.naver.maps.map.widget.LocationButtonView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,9 +24,15 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
     }
     private lateinit var naverMap: NaverMap
     private lateinit var locationSource: FusedLocationSource
+    private val btnCurrentLocationButton: LocationButtonView by lazy {
+        findViewById(R.id.btnCurrentLocation)
+    }
+
     private val viewPager: ViewPager2 by lazy {
         findViewById(R.id.houseViewPager)
     }
+
+
     private val viewPagerAdapter = HouseViewPagerAdapter()
     private val recyclerViewAdapter = HouseListrAdapter()
     private lateinit var recyclerView: RecyclerView
@@ -59,7 +66,8 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // current position    --> 사용자 동의가 필요함
         val uiSetting = naverMap.uiSettings
-        uiSetting.isLocationButtonEnabled = true
+        uiSetting.isLocationButtonEnabled = false // false -> 원래 있던 버튼이 보이지 않음
+        btnCurrentLocationButton.map = naverMap
 
         locationSource =
             FusedLocationSource(this@AbnbMainActivity, LOCATION_PERMISSION_REQUEST_CODE)
