@@ -45,6 +45,17 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
 
         viewPager.adapter = viewPagerAdapter
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                val selectedHouseModel = viewPagerAdapter.currentList[position]
+                val cameraUpdate =
+                    CameraUpdate.scrollTo(LatLng(selectedHouseModel.lat, selectedHouseModel.lng))
+                        .animate(CameraAnimation.Easing)
+                naverMap.moveCamera(cameraUpdate)
+            }
+        })
         initRecyclerView()
     }
 
