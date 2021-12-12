@@ -3,6 +3,7 @@ package com.example.myfastcampusstudy_android.intermediate.abnb
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.myfastcampusstudy_android.R
 import com.naver.maps.geometry.LatLng
@@ -26,6 +27,8 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
         findViewById(R.id.houseViewPager)
     }
     private val viewPagerAdapter = HouseViewPagerAdapter()
+    private val recyclerViewAdapter = HouseListrAdapter()
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +38,12 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
 
         viewPager.adapter = viewPagerAdapter
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView.adapter = recyclerViewAdapter
     }
 
     override fun onMapReady(map: NaverMap) {
@@ -79,6 +88,7 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
                         response.body()?.let { dto ->
                             updateMarker(dto.items)
                             viewPagerAdapter.submitList(dto.items)
+                            recyclerViewAdapter.submitList(dto.items)
                         }
                     }
 
