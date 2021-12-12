@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="naver_map_client_id">fv3dm5pfn9</string>
+    <string name="interpark_api_key">4718CFD3F6066FFB30F896F2FD9336935904A2C6C1B4F430E0FF569F32D282D3</string>
 </resources>

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.widget.AppCompatButton
 import com.example.myfastcampusstudy_android.basic.BasicActivity
+import com.example.myfastcampusstudy_android.intermediate.IntermediateActivity
 import com.example.myfastcampusstudy_android.intermediate.abnb.AbnbMainActivity
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         btnIntermediate = findViewById(R.id.btnIntermediateProject)
         btnIntermediate.setOnClickListener {
-            val intent = Intent(this, AbnbMainActivity::class.java)
+            val intent = Intent(this, IntermediateActivity::class.java)
             startActivity(intent)
         }
     }

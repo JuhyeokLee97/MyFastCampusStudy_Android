@@ -2,7 +2,7 @@
     <string name="app_name">MyFastCampusStudy_Android</string>
 
     <!-- BMI 계산기 -->
-    <string name="text_bmi_calculation_title">BIM 계산기</string>
+    <string name="text_bmi_calculation_title">BMI 계산기</string>
     <string name="text_height">신장</string>
     <string name="text_weight">체중</string>
     <string name="text_success_btn">확인하기</string>

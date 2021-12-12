@@ -1,31 +1,59 @@
 package com.example.myfastcampusstudy_android.intermediate.abnb
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.myfastcampusstudy_android.R
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.util.FusedLocationSource
 import com.naver.maps.map.util.MarkerIcons
+import com.naver.maps.map.widget.LocationButtonView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
+class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClickListener {
     private val mapView: MapView by lazy {
         findViewById(R.id.mapView)
     }
     private lateinit var naverMap: NaverMap
     private lateinit var locationSource: FusedLocationSource
+    private val btnCurrentLocationButton: LocationButtonView by lazy {
+        findViewById(R.id.btnCurrentLocation)
+    }
+
     private val viewPager: ViewPager2 by lazy {
         findViewById(R.id.houseViewPager)
     }
-    private val viewPagerAdapter = HouseViewPagerAdapter()
+
+    private val tvBottomSheetTitle: TextView by lazy {
+        findViewById(R.id.tvBottomSheetTitle)
+    }
+
+
+    private val viewPagerAdapter = HouseViewPagerAdapter(itemClicked = {
+        val intent = Intent()
+            .apply {
+                action = Intent.ACTION_SEND
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    "[지금 이 가격에 예약하세요!!] ${it.title} ${it.price} 사진보기: {${it.imgUrl}"
+                )
+                type = "text/plain"
+            }
+        startActivity(Intent.createChooser(intent, null))
+    })
+    private val recyclerViewAdapter = HouseListrAdapter()
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +63,23 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
 
         viewPager.adapter = viewPagerAdapter
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                val selectedHouseModel = viewPagerAdapter.currentList[position]
+                val cameraUpdate =
+                    CameraUpdate.scrollTo(LatLng(selectedHouseModel.lat, selectedHouseModel.lng))
+                        .animate(CameraAnimation.Easing)
+                naverMap.moveCamera(cameraUpdate)
+            }
+        })
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView.adapter = recyclerViewAdapter
     }
 
     override fun onMapReady(map: NaverMap) {
@@ -50,7 +95,8 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // current position    --> 사용자 동의가 필요함
         val uiSetting = naverMap.uiSettings
-        uiSetting.isLocationButtonEnabled = true
+        uiSetting.isLocationButtonEnabled = false // false -> 원래 있던 버튼이 보이지 않음
+        btnCurrentLocationButton.map = naverMap
 
         locationSource =
             FusedLocationSource(this@AbnbMainActivity, LOCATION_PERMISSION_REQUEST_CODE)
@@ -79,6 +125,9 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
                         response.body()?.let { dto ->
                             updateMarker(dto.items)
                             viewPagerAdapter.submitList(dto.items)
+                            recyclerViewAdapter.submitList(dto.items)
+
+                            tvBottomSheetTitle.text = "${dto.items.size}개의 숙소"
                         }
                     }
 
@@ -93,7 +142,7 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
         houses.forEach { house ->
             val marker = Marker()
             marker.position = LatLng(house.lat, house.lng)
-            // TODO 마커 클릭 리스너
+            marker.onClickListener = this
             marker.map = naverMap
             marker.tag = house.id
             marker.icon = MarkerIcons.BLACK
@@ -160,5 +209,19 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
+    }
+
+    // overlay: 마커들의 총집합
+    override fun onClick(overlay: Overlay): Boolean {
+        val selectedModel = viewPagerAdapter.currentList.firstOrNull() {
+            it.id == overlay.tag
+        }
+
+        selectedModel?.let {
+            val position = viewPagerAdapter.currentList.indexOf(it)
+            viewPager.currentItem = position
+        }
+
+        return true
     }
 }
