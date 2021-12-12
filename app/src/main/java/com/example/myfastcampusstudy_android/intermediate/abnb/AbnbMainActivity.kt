@@ -9,6 +9,7 @@ import com.example.myfastcampusstudy_android.R
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.util.FusedLocationSource
 import com.naver.maps.map.util.MarkerIcons
 import com.naver.maps.map.widget.LocationButtonView
@@ -18,7 +19,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
+class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClickListener {
     private val mapView: MapView by lazy {
         findViewById(R.id.mapView)
     }
@@ -122,7 +123,7 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
         houses.forEach { house ->
             val marker = Marker()
             marker.position = LatLng(house.lat, house.lng)
-            // TODO 마커 클릭 리스너
+            marker.onClickListener = this
             marker.map = naverMap
             marker.tag = house.id
             marker.icon = MarkerIcons.BLACK
@@ -189,5 +190,19 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
+    }
+
+    // overlay: 마커들의 총집합
+    override fun onClick(overlay: Overlay): Boolean {
+        val selectedModel = viewPagerAdapter.currentList.firstOrNull(){
+            it.id == overlay.tag
+        }
+
+        selectedModel?.let{
+            val position = viewPagerAdapter.currentList.indexOf(it)
+            viewPager.currentItem = position
+        }
+
+        return true
     }
 }
