@@ -1,8 +1,10 @@
 package com.example.myfastcampusstudy_android.intermediate.abnb
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.myfastcampusstudy_android.R
@@ -33,8 +35,23 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClic
         findViewById(R.id.houseViewPager)
     }
 
+    private val tvBottomSheetTitle: TextView by lazy {
+        findViewById(R.id.tvBottomSheetTitle)
+    }
 
-    private val viewPagerAdapter = HouseViewPagerAdapter()
+
+    private val viewPagerAdapter = HouseViewPagerAdapter(itemClicked = {
+        val intent = Intent()
+            .apply {
+                action = Intent.ACTION_SEND
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    "[지금 이 가격에 예약하세요!!] ${it.title} ${it.price} 사진보기: {${it.imgUrl}"
+                )
+                type = "text/plain"
+            }
+        startActivity(Intent.createChooser(intent, null))
+    })
     private val recyclerViewAdapter = HouseListrAdapter()
     private lateinit var recyclerView: RecyclerView
 
@@ -109,6 +126,8 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClic
                             updateMarker(dto.items)
                             viewPagerAdapter.submitList(dto.items)
                             recyclerViewAdapter.submitList(dto.items)
+
+                            tvBottomSheetTitle.text = "${dto.items.size}개의 숙소"
                         }
                     }
 
@@ -194,11 +213,11 @@ class AbnbMainActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClic
 
     // overlay: 마커들의 총집합
     override fun onClick(overlay: Overlay): Boolean {
-        val selectedModel = viewPagerAdapter.currentList.firstOrNull(){
+        val selectedModel = viewPagerAdapter.currentList.firstOrNull() {
             it.id == overlay.tag
         }
 
-        selectedModel?.let{
+        selectedModel?.let {
             val position = viewPagerAdapter.currentList.indexOf(it)
             viewPager.currentItem = position
         }

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myfastcampusstudy_android.R
 
-class HouseViewPagerAdapter :
+class HouseViewPagerAdapter(val itemClicked: (HouseModel) -> Unit) :
     androidx.recyclerview.widget.ListAdapter<HouseModel, HouseViewPagerAdapter.ViewHolder>(differ) {
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -25,6 +25,10 @@ class HouseViewPagerAdapter :
             Glide.with(ivThumbnail.context)
                 .load(houseModel.imgUrl)
                 .into(ivThumbnail)
+
+            view.setOnClickListener {
+                itemClicked(houseModel)
+            }
 
         }
     }
