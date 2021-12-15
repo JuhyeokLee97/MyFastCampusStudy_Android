@@ -30,6 +30,8 @@ class UsedTransactionMainActivity : AppCompatActivity() {
             }
             true
         }
+
+        replaceFragment(homeFragment)
     }
 
     private fun replaceFragment(fragment: Fragment) {
