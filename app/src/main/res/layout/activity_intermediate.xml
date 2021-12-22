@@ -34,5 +34,18 @@
         app:layout_constraintStart_toEndOf="@id/btnMoveToBookReview"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnMoveToUsedTransaction"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginVertical="16dp"
+        android:background="#FFA2A4DD"
+        android:text="중고 거래"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/btnMoveToBookReview"
+        app:layout_constraintStart_toStartOf="@id/btnMoveToBookReview"
+        app:layout_constraintTop_toBottomOf="@id/btnMoveToBookReview" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

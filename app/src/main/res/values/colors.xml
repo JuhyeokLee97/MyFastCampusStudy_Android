@@ -17,4 +17,6 @@
     <color name="green_press">#FF618C2F</color>
     <color name="pomodoro_red">#FFD32F2F</color>
     <color name="transparent">#00000000</color>
+    <color name="gray">#cccccc</color>
+    <color name="gray_2">#FFECECEC</color>
 </resources>

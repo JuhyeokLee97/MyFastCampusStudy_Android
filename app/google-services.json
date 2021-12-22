@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1035418396673",
+    "firebase_url": "https://myfastcampus-android-default-rtdb.firebaseio.com",
+    "project_id": "myfastcampus-android",
+    "storage_bucket": "myfastcampus-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1035418396673:android:34bda453761f1ad4fa7800",
+        "android_client_info": {
+          "package_name": "com.example.myfastcampusstudy_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1035418396673-nmhh9bsprvujeu6r39jqcdbcto7932st.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDR0N_R2PZPp7liNZIACgGa0dpM99q0h2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1035418396673-nmhh9bsprvujeu6r39jqcdbcto7932st.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
