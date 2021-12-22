@@ -1,40 +1,38 @@
 package com.example.myfastcampusstudy_android.intermediate
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
-import androidx.appcompat.widget.AppCompatButton
-import com.example.myfastcampusstudy_android.R
 import com.example.myfastcampusstudy_android.databinding.ActivityIntermediateBinding
 import com.example.myfastcampusstudy_android.intermediate.abnb.AbnbMainActivity
 import com.example.myfastcampusstudy_android.intermediate.book_review.BookReviewMainActivity
+import com.example.myfastcampusstudy_android.intermediate.tinder.TinderMainActivity
 import com.example.myfastcampusstudy_android.intermediate.used_transaction.UsedTransactionMainActivity
 
 class IntermediateActivity : AppCompatActivity() {
     private lateinit var binding: ActivityIntermediateBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_intermediate)
-        setListener()
+        binding = ActivityIntermediateBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setListeners()
     }
 
-    override fun onCreateView(
-        parent: View?,
-        name: String,
-        context: Context,
-        attrs: AttributeSet
-    ): View? {
-        binding = ActivityIntermediateBinding.bind(parent!!)
-        return super.onCreateView(parent, name, context, attrs)
-    }
 
-    private fun setListener() {
+    private fun setListeners() {
         setListenerToButtonForBookReview()
         setListenerToButtonForAirBNB()
         setListenerToButtonForUsedTransaction()
+        setListenerToButtonForTinder()
+    }
+
+    private fun setListenerToButtonForTinder() {
+        binding.btnMoveToTinder.setOnClickListener {
+            val intent = Intent(this, TinderMainActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setListenerToButtonForBookReview() {
