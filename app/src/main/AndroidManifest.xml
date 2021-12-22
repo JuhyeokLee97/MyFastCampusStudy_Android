@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFastCampusStudy_Android">
         <activity
+            android:name=".intermediate.tinder.SignInActivity"
+            android:exported="false" />
+        <activity
             android:name=".intermediate.tinder.TinderMainActivity"
             android:exported="false" />
         <activity
