@@ -71,5 +71,8 @@ dependencies {
     // firebase auth
     implementation 'com.google.firebase:firebase-auth-ktx'
 
+    // Facebook Sign In
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+
 
 }

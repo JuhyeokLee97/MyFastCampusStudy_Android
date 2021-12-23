@@ -3,7 +3,6 @@ package com.example.myfastcampusstudy_android.intermediate.tinder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import com.example.myfastcampusstudy_android.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -76,6 +75,7 @@ class SignInActivity : AppCompatActivity() {
                     }
                 }
         }
+
     }
 
 
