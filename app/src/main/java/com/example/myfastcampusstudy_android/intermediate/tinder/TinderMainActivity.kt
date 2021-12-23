@@ -27,7 +27,6 @@ class TinderMainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-
         if (auth.currentUser == null){
             startActivity(Intent(this, SignInActivity::class.java))
         }

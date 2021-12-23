@@ -30,4 +30,9 @@
     <!-- 뽀모도로 타이머 -->
     <string name="text_pomodoro_text">뽀모도로 타이머</string>
     <string name="text_recorder_title">녹음기</string>
+
+    <!-- Facebook Login -->
+    <string name="facebook_app_id">494759861908535</string>
+    <string name="fb_login_protocol_scheme">fb494759861908535</string>
+
 </resources>

@@ -1,9 +1,17 @@
 package com.example.myfastcampusstudy_android.intermediate.tinder
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.myfastcampusstudy_android.R
 import com.example.myfastcampusstudy_android.databinding.ActivitySignInBinding
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginResult
+import com.facebook.login.widget.LoginButton
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -11,6 +19,7 @@ import com.google.firebase.ktx.Firebase
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var callbackManager: CallbackManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,13 +27,14 @@ class SignInActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = Firebase.auth
-
+        callbackManager = CallbackManager.Factory.create()
         initViews()
     }
 
     private fun initViews() {
         initSignInButton()
         initSignUpButton()
+        initFacebookSignInButton()
     }
 
 
@@ -78,7 +88,40 @@ class SignInActivity : AppCompatActivity() {
 
     }
 
+    private fun initFacebookSignInButton(){
+
+        val btnFacebookSignIn = findViewById<LoginButton>(R.id.btnFacebookSignIn)
+        binding.btnFacebookSignIn.apply {
+            setReadPermissions("email", "public_profile")
+            registerCallback(callbackManager, object : FacebookCallback<LoginResult>{
+                override fun onSuccess(result: LoginResult) {
+                    val credential = FacebookAuthProvider.getCredential(result.accessToken.token)
+                    auth.signInWithCredential(credential)
+                        .addOnCompleteListener(this@SignInActivity){ task ->
+                            if (task.isSuccessful){
+                                finish()
+                            }else{
+                                Toast.makeText(this@SignInActivity, "페이스북 로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                }
+
+                override fun onCancel() {
+                }
+
+                override fun onError(error: FacebookException?) {
+                    Toast.makeText(this@SignInActivity, "페이스북 로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+
+    }
 
     private fun getInputEmail(): String = binding.etEmail.text.toString()
     private fun getInputPassword(): String = binding.etPassword.text.toString()
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+    }
 }
