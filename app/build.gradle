@@ -76,5 +76,6 @@ dependencies {
     // Facebook Sign In
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 
-
+    // https://github.com/yuyakaido/CardStackView
+    implementation "com.yuyakaido.android:card-stack-view:2.3.4"
 }
