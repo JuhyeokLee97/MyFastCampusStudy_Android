@@ -31,6 +31,7 @@ class TinderMainActivity : AppCompatActivity() {
             startActivity(Intent(this, SignInActivity::class.java))
         } else {
             startActivity(Intent(this, LikeActivity::class.java))
+            finish()
         }
     }
 }

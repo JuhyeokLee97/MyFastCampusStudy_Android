@@ -1,5 +1,6 @@
 package com.example.myfastcampusstudy_android.intermediate.tinder
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -39,13 +40,33 @@ class LikeActivity : AppCompatActivity(), CardStackListener {
                     showNameInputPopup()
                     return
                 }
-
+                initUserName(snapshot.child("name").value.toString())
                 getUnSelectedUsers()
             }
 
             override fun onCancelled(error: DatabaseError) {}
         })
         initCardStackView()
+        initSignOutButton()
+        initMatchedListButton()
+    }
+
+    private fun initSignOutButton() {
+        binding.btnSignOut.setOnClickListener {
+            auth.signOut()
+            startActivity(Intent(this@LikeActivity, TinderMainActivity::class.java))
+            finish()
+        }
+    }
+
+    private fun initMatchedListButton() {
+        binding.btnShowMatchedList.setOnClickListener {
+            startActivity(Intent(this@LikeActivity, MatchedUserActivity::class.java))
+        }
+    }
+
+    private fun initUserName(name: String) {
+        binding.tvName.text = name
     }
 
     private fun initCardStackView() {
@@ -72,9 +93,7 @@ class LikeActivity : AppCompatActivity(), CardStackListener {
 
                         cardItems.add(CardItem(userId, name))
                         adapter.submitList(cardItems)
-                        // listAdapter 인데 NotifyDatasetChanged 를 호출해야해??
-                        // 디버깅으로 확인해보자. => 없어도 됨
-                        // adapter.notifyDataSetChanged()
+                        adapter.notifyDataSetChanged()
                     }
                 }
 
@@ -85,7 +104,7 @@ class LikeActivity : AppCompatActivity(), CardStackListener {
                     it.name = snapshot.child("name").value.toString()
                 }
                 adapter.submitList(cardItems)
-                // adapter.notifyDataSetChanged()
+                adapter.notifyDataSetChanged()
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {}
@@ -145,7 +164,8 @@ class LikeActivity : AppCompatActivity(), CardStackListener {
             .child(getCurrentUserId())
             .setValue(true)
 
-        Toast.makeText(this, "${card.name}님을 disLike 하셨습니다.", Toast.LENGTH_SHORT).show()
+        saveMatchIfOtherUserLikedMe(card.userId)
+        Toast.makeText(this, "${card.name}님을 Like 하셨습니다.", Toast.LENGTH_SHORT).show()
     }
 
     private fun disLike() {
@@ -158,8 +178,35 @@ class LikeActivity : AppCompatActivity(), CardStackListener {
             .child(getCurrentUserId())
             .setValue(true)
 
-        // todo 매칭이 된 시점을 봐야한다.
-        Toast.makeText(this, "${card.name}님을 Like 하셨습니다.", Toast.LENGTH_SHORT).show()
+
+        Toast.makeText(this, "${card.name}님을 disLike 하셨습니다.", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun saveMatchIfOtherUserLikedMe(otherUserId: String) {
+        val isOtherUserLikeMe = usersDB.child(getCurrentUserId()).child("likedBy")
+            .child("like")
+            .child(otherUserId)
+
+        isOtherUserLikeMe.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.value == true) {
+                    usersDB.child(getCurrentUserId())
+                        .child("likedBy")
+                        .child("match")
+                        .child(otherUserId)
+                        .setValue(true)
+
+                    usersDB.child(otherUserId)
+                        .child("likedBy")
+                        .child("match")
+                        .child(getCurrentUserId())
+                        .setValue(true)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+
     }
 
     override fun onCardDragging(direction: Direction?, ratio: Float) {}
