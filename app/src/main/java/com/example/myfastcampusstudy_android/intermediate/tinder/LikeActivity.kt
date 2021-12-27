@@ -8,10 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.myfastcampusstudy_android.databinding.ActivityLikeBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
@@ -24,6 +21,9 @@ class LikeActivity : AppCompatActivity(), CardStackListener {
     private lateinit var usersDB: DatabaseReference
     private val adapter = CardItemAdapter()
     private val cardItems = mutableListOf<CardItem>()
+    private val cardStackLayoutManager by lazy {
+        CardStackLayoutManager(this, this)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,20 +39,61 @@ class LikeActivity : AppCompatActivity(), CardStackListener {
                     showNameInputPopup()
                     return
                 }
-                // todo 유저정보를 갱신해라
+
+                getUnSelectedUsers()
             }
 
             override fun onCancelled(error: DatabaseError) {}
         })
-
         initCardStackView()
     }
 
     private fun initCardStackView() {
         binding.cardStackView.apply {
-            layoutManager = CardStackLayoutManager(this@LikeActivity, this@LikeActivity)
-            adapter = adapter
+            layoutManager = cardStackLayoutManager
+            adapter = this@LikeActivity.adapter
         }
+    }
+
+    private fun getUnSelectedUsers() {
+        usersDB.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                with(snapshot) {
+                    if (child("userId").value != getCurrentUserId()
+                        && child("likedBy").child("like").hasChild(getCurrentUserId()).not()
+                        && child("likedBy").child("disLike").hasChild(getCurrentUserId()).not()
+                    ) {
+
+                        val userId = child("userId").value.toString()
+                        var name = "undecided"
+                        if (child("name").value != null) {
+                            name = child("name").value.toString()
+                        }
+
+                        cardItems.add(CardItem(userId, name))
+                        adapter.submitList(cardItems)
+                        // listAdapter 인데 NotifyDatasetChanged 를 호출해야해??
+                        // 디버깅으로 확인해보자. => 없어도 됨
+                        // adapter.notifyDataSetChanged()
+                    }
+                }
+
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                cardItems.find { it.userId == snapshot.child("userId").value.toString() }?.let {
+                    it.name = snapshot.child("name").value.toString()
+                }
+                adapter.submitList(cardItems)
+                // adapter.notifyDataSetChanged()
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
     }
 
     private fun getCurrentUserId(): String {
@@ -87,11 +128,50 @@ class LikeActivity : AppCompatActivity(), CardStackListener {
         user["userId"] = userId
         user["name"] = name
         usersDB.child(userId).updateChildren(user)
+
+        // getUnSelectedUsers() 함수가 usersDB에 리스너를 다는 것인데 굳이 여기에 있어야 하나?
+        // 함수의 위치를 바꿔가며 정상 작동 하는지 알아보자.
+        //   => 데이터 동기화가 느리지만 정상 작동한다.
+        getUnSelectedUsers()
+    }
+
+    private fun like() {
+        val card = cardItems[cardStackLayoutManager.topPosition - 1]
+        cardItems.removeFirst()
+
+        usersDB.child(card.userId)
+            .child("likedBy")
+            .child("like")
+            .child(getCurrentUserId())
+            .setValue(true)
+
+        Toast.makeText(this, "${card.name}님을 disLike 하셨습니다.", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun disLike() {
+        val card = cardItems[cardStackLayoutManager.topPosition - 1]
+        cardItems.removeFirst()
+
+        usersDB.child(card.userId)
+            .child("likedBy")
+            .child("disLike")
+            .child(getCurrentUserId())
+            .setValue(true)
+
+        // todo 매칭이 된 시점을 봐야한다.
+        Toast.makeText(this, "${card.name}님을 Like 하셨습니다.", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCardDragging(direction: Direction?, ratio: Float) {}
 
     override fun onCardSwiped(direction: Direction?) {
+        when (direction) {
+            Direction.Right -> like()
+            Direction.Left -> disLike()
+            else -> {
+
+            }
+        }
     }
 
     override fun onCardRewound() {}
