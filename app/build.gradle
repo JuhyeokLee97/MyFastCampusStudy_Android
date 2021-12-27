@@ -70,6 +70,12 @@ dependencies {
 
     // firebase auth
     implementation 'com.google.firebase:firebase-auth-ktx'
+    // firebase RealTime DB
+    implementation 'com.google.firebase:firebase-database-ktx'
 
+    // Facebook Sign In
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 
+    // https://github.com/yuyakaido/CardStackView
+    implementation "com.yuyakaido.android:card-stack-view:2.3.4"
 }
