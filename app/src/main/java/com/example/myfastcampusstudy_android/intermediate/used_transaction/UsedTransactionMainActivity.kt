@@ -8,8 +8,13 @@ import com.example.myfastcampusstudy_android.intermediate.used_transaction.chat_
 import com.example.myfastcampusstudy_android.intermediate.used_transaction.home.HomeFragment
 import com.example.myfastcampusstudy_android.intermediate.used_transaction.my_page.MyPageFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.ktx.Firebase
 
 class UsedTransactionMainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_used_transaction_main)
