@@ -8,6 +8,13 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.myfastcampusstudy_android.databinding.ActivityLikeBinding
+import com.example.myfastcampusstudy_android.intermediate.tinder.DBKey.Companion.DISLIKE
+import com.example.myfastcampusstudy_android.intermediate.tinder.DBKey.Companion.LIKE
+import com.example.myfastcampusstudy_android.intermediate.tinder.DBKey.Companion.LIKED_BY
+import com.example.myfastcampusstudy_android.intermediate.tinder.DBKey.Companion.MATCH
+import com.example.myfastcampusstudy_android.intermediate.tinder.DBKey.Companion.NAME
+import com.example.myfastcampusstudy_android.intermediate.tinder.DBKey.Companion.USERS
+import com.example.myfastcampusstudy_android.intermediate.tinder.DBKey.Companion.USER_ID
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
@@ -32,15 +39,15 @@ class LikeActivity : AppCompatActivity(), CardStackListener {
         binding = ActivityLikeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        usersDB = Firebase.database.reference.child("Users")
+        usersDB = Firebase.database.reference.child(USERS)
         val currentUserDB = usersDB.child(getCurrentUserId())
         currentUserDB.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.child("name").value == null) {
+                if (snapshot.child(NAME).value == null) {
                     showNameInputPopup()
                     return
                 }
-                initUserName(snapshot.child("name").value.toString())
+                initUserName(snapshot.child(NAME).value.toString())
                 getUnSelectedUsers()
             }
 
@@ -80,15 +87,15 @@ class LikeActivity : AppCompatActivity(), CardStackListener {
         usersDB.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 with(snapshot) {
-                    if (child("userId").value != getCurrentUserId()
-                        && child("likedBy").child("like").hasChild(getCurrentUserId()).not()
-                        && child("likedBy").child("disLike").hasChild(getCurrentUserId()).not()
+                    if (child(USER_ID).value != getCurrentUserId()
+                        && child(LIKED_BY).child(LIKE).hasChild(getCurrentUserId()).not()
+                        && child(LIKED_BY).child(DISLIKE).hasChild(getCurrentUserId()).not()
                     ) {
 
-                        val userId = child("userId").value.toString()
+                        val userId = child(USER_ID).value.toString()
                         var name = "undecided"
-                        if (child("name").value != null) {
-                            name = child("name").value.toString()
+                        if (child(NAME).value != null) {
+                            name = child(NAME).value.toString()
                         }
 
                         cardItems.add(CardItem(userId, name))
@@ -100,8 +107,8 @@ class LikeActivity : AppCompatActivity(), CardStackListener {
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                cardItems.find { it.userId == snapshot.child("userId").value.toString() }?.let {
-                    it.name = snapshot.child("name").value.toString()
+                cardItems.find { it.userId == snapshot.child(USER_ID).value.toString() }?.let {
+                    it.name = snapshot.child(NAME).value.toString()
                 }
                 adapter.submitList(cardItems)
                 adapter.notifyDataSetChanged()
@@ -144,8 +151,8 @@ class LikeActivity : AppCompatActivity(), CardStackListener {
     private fun saveUserName(name: String) {
         val userId = getCurrentUserId()
         val user = mutableMapOf<String, Any>()
-        user["userId"] = userId
-        user["name"] = name
+        user[USER_ID] = userId
+        user[NAME] = name
         usersDB.child(userId).updateChildren(user)
 
         // getUnSelectedUsers() 함수가 usersDB에 리스너를 다는 것인데 굳이 여기에 있어야 하나?
@@ -159,8 +166,8 @@ class LikeActivity : AppCompatActivity(), CardStackListener {
         cardItems.removeFirst()
 
         usersDB.child(card.userId)
-            .child("likedBy")
-            .child("like")
+            .child(LIKED_BY)
+            .child(LIKE)
             .child(getCurrentUserId())
             .setValue(true)
 
@@ -173,8 +180,8 @@ class LikeActivity : AppCompatActivity(), CardStackListener {
         cardItems.removeFirst()
 
         usersDB.child(card.userId)
-            .child("likedBy")
-            .child("disLike")
+            .child(LIKED_BY)
+            .child(DISLIKE)
             .child(getCurrentUserId())
             .setValue(true)
 
@@ -183,22 +190,22 @@ class LikeActivity : AppCompatActivity(), CardStackListener {
     }
 
     private fun saveMatchIfOtherUserLikedMe(otherUserId: String) {
-        val isOtherUserLikeMe = usersDB.child(getCurrentUserId()).child("likedBy")
-            .child("like")
+        val isOtherUserLikeMe = usersDB.child(getCurrentUserId()).child(LIKED_BY)
+            .child(LIKE)
             .child(otherUserId)
 
         isOtherUserLikeMe.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.value == true) {
                     usersDB.child(getCurrentUserId())
-                        .child("likedBy")
-                        .child("match")
+                        .child(LIKED_BY)
+                        .child(MATCH)
                         .child(otherUserId)
                         .setValue(true)
 
                     usersDB.child(otherUserId)
-                        .child("likedBy")
-                        .child("match")
+                        .child(LIKED_BY)
+                        .child(MATCH)
                         .child(getCurrentUserId())
                         .setValue(true)
                 }
