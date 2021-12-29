@@ -6,28 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ImageButton
-        android:id="@+id/ibBasicProjects"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnBasicProject"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
+        android:textSize="35sp"
+        android:padding="20dp"
+        android:text="@string/text_project_level_basic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".3" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="BASIC"
-        android:textColor="@color/black"
-        android:textSize="35sp"
-        app:layout_constraintBottom_toBottomOf="@id/ibBasicProjects"
-        app:layout_constraintEnd_toEndOf="@id/ibBasicProjects"
-        app:layout_constraintStart_toStartOf="@id/ibBasicProjects"
-        app:layout_constraintTop_toTopOf="@id/ibBasicProjects" />
-
+        app:layout_constraintVertical_bias=".3"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnIntermediateProject"
@@ -36,11 +28,11 @@
         android:layout_marginTop="20dp"
         android:background="#00BCD4"
         android:padding="20dp"
-        android:text="INTERMEDIATE"
+        android:text="@string/text_project_level_intermediate"
         android:textColor="@color/white"
         android:textSize="35sp"
-        app:layout_constraintEnd_toEndOf="@id/ibBasicProjects"
-        app:layout_constraintStart_toStartOf="@id/ibBasicProjects"
-        app:layout_constraintTop_toBottomOf="@id/ibBasicProjects" />
+        app:layout_constraintEnd_toEndOf="@id/btnBasicProject"
+        app:layout_constraintStart_toStartOf="@id/btnBasicProject"
+        app:layout_constraintTop_toBottomOf="@id/btnBasicProject" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,4 +35,8 @@
     <string name="facebook_app_id">494759861908535</string>
     <string name="fb_login_protocol_scheme">fb494759861908535</string>
 
+    <!-- Home Activity -->
+    <string name="text_project_level_basic">BASIC</string>
+    <string name="text_project_level_intermediate">INTERMEDIATE</string>
+
 </resources>
