@@ -8,33 +8,44 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.myfastcampusstudy_android.R
+import com.example.myfastcampusstudy_android.databinding.ActivityCalculationBmiMainBinding
 
 class CalculationBmiMainActivity : AppCompatActivity() {
-    val TAG = "MainActivity"
+    private lateinit var binding: ActivityCalculationBmiMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_calculation_bmi_main)
+        binding = ActivityCalculationBmiMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val etHeight: EditText = findViewById(R.id.etHeight)
-        val etWeight: EditText = findViewById(R.id.etWeight)
-        val btnCalculation: Button = findViewById(R.id.btnCalculation)
+        initViews()
+    }
 
-        btnCalculation.setOnClickListener {
-            Log.d(TAG, "버튼 클릭")
+    private fun initViews() {
+        initCalculationButton()
+    }
 
-            if (etHeight.text.isEmpty() or etWeight.text.isEmpty()) {
-                Toast.makeText(this, "내용 모두를 채워주세요.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+    private fun initCalculationButton() {
+        binding.apply {
+            btnCalculation.setOnClickListener {
+                if (etHeight.text.isEmpty() or etWeight.text.isEmpty()) {
+                    Toast.makeText(
+                        this@CalculationBmiMainActivity,
+                        "내용 모두를 채워주세요.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                }
+
+                val height = etHeight.text.toString().toInt()
+                val weight = etWeight.text.toString().toInt()
+
+                val intent = Intent(this@CalculationBmiMainActivity, ResultActivity::class.java)
+                intent.putExtra("height", height)
+                intent.putExtra("weight", weight)
+                startActivity(intent)
             }
 
-            val height = etHeight.text.toString().toInt()
-            val weight = etWeight.text.toString().toInt()
-            Log.d(TAG, "입력된 Height: $height \t Weight: $weight")
-
-            val intent = Intent(this, ResultActivity::class.java)
-            intent.putExtra("height", height)
-            intent.putExtra("weight", weight)
-            startActivity(intent)
         }
     }
 }

@@ -8,6 +8,12 @@
     <string name="text_success_btn">확인하기</string>
     <string name="text_hint_of_input_height">신장을 입력해주세요.</string>
     <string name="text_hint_of_input_weight">체중을 입력해주세요.</string>
+    <string name="text_bmi_level_0">저체중</string>
+    <string name="text_bmi_level_1">정상체중</string>
+    <string name="text_bmi_level_2">과체중</string>
+    <string name="text_bmi_level_3">경도 비만</string>
+    <string name="text_bmi_level_4">중경도 비만</string>
+    <string name="text_bmi_level_5">고도 비만</string>
 
     <!-- 로또 번호 추천 -->
     <string name="text_lottery_number_recommendation">로또번호 추첨기</string>
@@ -34,5 +40,11 @@
     <!-- Facebook Login -->
     <string name="facebook_app_id">494759861908535</string>
     <string name="fb_login_protocol_scheme">fb494759861908535</string>
+
+    <!-- Home Activity -->
+    <string name="text_project_level_basic">BASIC</string>
+    <string name="text_project_level_intermediate">INTERMEDIATE</string>
+
+
 
 </resources>

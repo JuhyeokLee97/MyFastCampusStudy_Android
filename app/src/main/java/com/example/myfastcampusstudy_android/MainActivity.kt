@@ -6,26 +6,36 @@ import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.widget.AppCompatButton
 import com.example.myfastcampusstudy_android.basic.BasicActivity
+import com.example.myfastcampusstudy_android.databinding.ActivityMainBinding
 import com.example.myfastcampusstudy_android.intermediate.IntermediateActivity
 import com.example.myfastcampusstudy_android.intermediate.abnb.AbnbMainActivity
 
 class MainActivity : AppCompatActivity() {
-    lateinit var btnBasic: ImageButton
-    lateinit var btnIntermediate: AppCompatButton
+    private lateinit var binding: ActivityMainBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        btnBasic = findViewById(R.id.ibBasicProjects)
-        btnBasic.setOnClickListener {
-            var intent = Intent(this, BasicActivity::class.java)
+        initViews()
+    }
+
+    private fun initViews() {
+        initBasicButton()
+        initIntermediateButton()
+    }
+
+    private fun initBasicButton() {
+        binding.btnBasicProject.setOnClickListener {
+            val intent = Intent(this, BasicActivity::class.java)
             startActivity(intent)
         }
+    }
 
-        btnIntermediate = findViewById(R.id.btnIntermediateProject)
-        btnIntermediate.setOnClickListener {
+    private fun initIntermediateButton() {
+        binding.btnIntermediateProject.setOnClickListener {
             val intent = Intent(this, IntermediateActivity::class.java)
             startActivity(intent)
         }
