@@ -9,36 +9,59 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.example.myfastcampusstudy_android.R
+import com.example.myfastcampusstudy_android.databinding.ActivityLotteryNumberRecommendationMainBinding
 
 class LotteryNumberRecommendationMainActivity : AppCompatActivity() {
     private val btnClear: Button by lazy { findViewById(R.id.btnClearNumbers) }
     private val btnAddNumber: Button by lazy { findViewById(R.id.btnAddNumber) }
     private val btnRun: Button by lazy { findViewById(R.id.btnRun) }
     private val numberPicker: NumberPicker by lazy { findViewById(R.id.numberPicker) }
-    private val tvNumberList: List<TextView> by lazy {
-        listOf<TextView>(
-            findViewById(R.id.tvFirstNumber),
-            findViewById(R.id.tvSecondNumber),
-            findViewById(R.id.tvThirdNumber),
-            findViewById(R.id.tvFourthNumber),
-            findViewById(R.id.tvFifthNumber),
-            findViewById(R.id.tvSixthNumber)
-        )
-    }
+
+    //    private val tvNumberList: List<TextView> by lazy {
+//        listOf<TextView>(
+//            binding.tvFirstNumber,
+//            findViewById(R.id.tvSecondNumber),
+//            findViewById(R.id.tvThirdNumber),
+//            findViewById(R.id.tvFourthNumber),
+//            findViewById(R.id.tvFifthNumber),
+//            findViewById(R.id.tvSixthNumber)
+//        )
+//    }
+    private lateinit var tvNumberList: List<TextView>
 
     private var didRun = false
     private val pickNumberSet = hashSetOf<Int>()
 
+    private lateinit var binding: ActivityLotteryNumberRecommendationMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_lottery_number_recommendation_main)
+        binding = ActivityLotteryNumberRecommendationMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        initData()
         initView()
     }
 
+    private fun initData() {
+        initTextViewList()
+    }
+
+    private fun initTextViewList() {
+        binding.apply {
+            tvNumberList = listOf(
+                tvFirstNumber,
+                tvSecondNumber,
+                tvThirdNumber,
+                tvFourthNumber,
+                tvFifthNumber,
+                tvSixthNumber
+            )
+        }
+    }
+
     private fun initView() {
-        numberPicker.minValue = 1
-        numberPicker.maxValue = 45
+        binding.numberPicker.minValue = 1
+        binding.numberPicker.maxValue = 45
 
         initBtnRun()
         initBtnAddNumber()
@@ -46,18 +69,15 @@ class LotteryNumberRecommendationMainActivity : AppCompatActivity() {
     }
 
     private fun initBtnClear() {
-        btnClear.setOnClickListener {
+        binding.btnClearNumbers.setOnClickListener {
             pickNumberSet.clear()
             didRun = false
-            tvNumberList.forEach {
-                it.isVisible = false
-            }
+            tvNumberList.forEach { tv -> tv.isVisible = false }
         }
-
     }
 
     private fun initBtnAddNumber() {
-        btnAddNumber.setOnClickListener {
+        binding.btnAddNumber.setOnClickListener {
             if (didRun) {
                 Toast.makeText(this, "초기화 후에 시도해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -72,16 +92,16 @@ class LotteryNumberRecommendationMainActivity : AppCompatActivity() {
             }
 
             val tvNumber = tvNumberList[pickNumberSet.size]
-            tvNumber.text = numberPicker.value.toString()
+            val value: Int = numberPicker.value
+            pickNumberSet.add(value)
+            tvNumber.text = value.toString()
             tvNumber.isVisible = true
             setNumberBackground(numberPicker.value, tvNumber)
-
-            pickNumberSet.add(numberPicker.value)
         }
     }
 
     private fun initBtnRun() {
-        btnRun.setOnClickListener {
+        binding.btnRun.setOnClickListener {
             val list = getRandomNumber()
             didRun = true
 
