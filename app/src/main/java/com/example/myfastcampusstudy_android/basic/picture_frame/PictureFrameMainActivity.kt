@@ -14,25 +14,25 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import com.example.myfastcampusstudy_android.R
+import com.example.myfastcampusstudy_android.databinding.ActivityPictureFrameMainBinding
 
 class PictureFrameMainActivity : AppCompatActivity() {
 
-    lateinit var btnStartPhotoFrameMode: AppCompatButton
-    lateinit var btnAddPhoto: AppCompatButton
     lateinit var imageViewList: List<ImageView>
     private val imageUriList: MutableList<Uri> = mutableListOf()
+    private val requestCode = 1000
+    private lateinit var binding: ActivityPictureFrameMainBinding
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_picture_frame_main)
-
+        binding = ActivityPictureFrameMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         initView()
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun initView() {
-
         initAddPhotoButton()
         initStartPhotoFrameModeButton()
         initImageViewList()
@@ -51,20 +51,19 @@ class PictureFrameMainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun initAddPhotoButton() {
-        btnAddPhoto = findViewById(R.id.btnAddPhoto)
-        btnAddPhoto.setOnClickListener {
+        binding.btnAddPhoto.setOnClickListener {
             when {
                 // 갤러리 접근 권한이 있는 경우
                 ContextCompat.checkSelfPermission(
                     this,
                     android.Manifest.permission.READ_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_GRANTED
+                )
+                        == PackageManager.PERMISSION_GRANTED
                 -> {
-                    // TODO: 권한이 잘 부여되었기 때문에 갤러리에서 사진을 선택하는 기능
                     navigatePhoto()
                 }
 
-                // 권한이 부여되지 않은 상황이에서, 교육용 팝업을 보여줘야 하는 경우
+                // 권한이 부여되지 않은 상황에서, 교육용 팝업을 보여줘야 하는 경우
                 shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE)
                 -> {
                     showPermissionContextPopup()
@@ -74,19 +73,19 @@ class PictureFrameMainActivity : AppCompatActivity() {
                 else -> {
                     requestPermissions(
                         arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                        1000
+                        requestCode
                     )
                 }
+
             }
         }
     }
 
     private fun initStartPhotoFrameModeButton() {
-        btnStartPhotoFrameMode = findViewById(R.id.btnStartPhotoFrameMode)
-        btnStartPhotoFrameMode.setOnClickListener {
-            val intent = Intent(this, PhotoFrameActivity::class.java)
-            imageUriList.forEachIndexed { index, uri ->
-                intent.putExtra("photo$index", uri.toString())
+        binding.btnStartPhotoFrameMode.setOnClickListener {
+            val intent  = Intent(this, PhotoFrameActivity::class.java)
+            imageUriList.forEachIndexed{idx, uri ->
+                intent.putExtra("photo$idx", uri.toString())
             }
             intent.putExtra("photoListSize", imageUriList.size)
 
@@ -102,7 +101,7 @@ class PictureFrameMainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         when (requestCode) {
-            1000 -> {
+            this.requestCode -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     navigatePhoto()
                 } else {
