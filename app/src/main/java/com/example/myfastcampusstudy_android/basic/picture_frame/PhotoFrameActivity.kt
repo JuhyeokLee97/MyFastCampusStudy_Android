@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import com.example.myfastcampusstudy_android.R
+import com.example.myfastcampusstudy_android.databinding.ActivityPhotoFrameBinding
 import java.util.*
 import kotlin.concurrent.timer
 
@@ -12,22 +13,16 @@ class PhotoFrameActivity : AppCompatActivity() {
 
     private var currentPosition = 0
     private val photoList = mutableListOf<Uri>()
-    private lateinit var ivPhoto: ImageView
-    private lateinit var ivBackgroundPhoto: ImageView
+    private var timer: Timer? = null
 
-    private var timer : Timer? = null
+    private lateinit var binding: ActivityPhotoFrameBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_photo_frame)
+        binding = ActivityPhotoFrameBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        initView()
         getPhotoUriFromPrevIntent()
-    }
-
-    private fun initView() {
-        ivPhoto = findViewById(R.id.ivPhoto)
-        ivBackgroundPhoto = findViewById(R.id.ivBackgroundPhoto)
     }
 
     private fun getPhotoUriFromPrevIntent() {
@@ -45,16 +40,16 @@ class PhotoFrameActivity : AppCompatActivity() {
                 val current = currentPosition
                 val next = (currentPosition + 1) % (photoList.size)
 
-                ivBackgroundPhoto.setImageURI(photoList[current])
+                binding.ivBackgroundPhoto.setImageURI(photoList[current])
 
                 // alpha 값은 투명도
-                ivPhoto.alpha = 0f
-                ivPhoto.setImageURI(photoList[next])
-                ivPhoto.animate()
-                    .alpha(1.0f)
-                    .setDuration(1000)
-                    .start()
-
+                with(binding.ivPhoto) {
+                    alpha = 0f
+                    setImageURI(photoList[next])
+                    animate().alpha(1.0f)
+                        .setDuration(1000)
+                        .start()
+                }
                 currentPosition = next
             }
         }
