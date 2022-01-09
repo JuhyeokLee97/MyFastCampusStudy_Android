@@ -10,6 +10,7 @@ class DBKey {
         const val NAME = "name"
         const val MATCH = "match"
 
-        const val  DB_ARTICLES = "Articles"
+        const val DB_ARTICLES = "Articles"
+        const val DB_ARTICLE_PHOTO = "article/photo"
     }
 }
