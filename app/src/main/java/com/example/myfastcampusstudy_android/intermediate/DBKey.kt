@@ -1,4 +1,4 @@
-package com.example.myfastcampusstudy_android.intermediate.tinder
+package com.example.myfastcampusstudy_android.intermediate
 
 class DBKey {
     companion object {
@@ -10,5 +10,6 @@ class DBKey {
         const val NAME = "name"
         const val MATCH = "match"
 
+        const val  DB_ARTICLES = "Articles"
     }
 }
