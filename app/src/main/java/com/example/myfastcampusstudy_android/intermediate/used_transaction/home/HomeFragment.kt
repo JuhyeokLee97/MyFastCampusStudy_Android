@@ -1,5 +1,6 @@
 package com.example.myfastcampusstudy_android.intermediate.used_transaction.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -30,6 +31,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             articleList.add(articleModel)
             articleAdapter.submitList(articleList)
         }
+
         override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
         override fun onChildRemoved(snapshot: DataSnapshot) {}
         override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
@@ -39,14 +41,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         Firebase.auth
     }
 
-    private var binding: FragmentHomeBinding? = null
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // onViewCreated 에서 null 체크를 하지 않기 위해서 지역변수 fragmentHomeBinding 사용
-        val fragmentHomeBinding = FragmentHomeBinding.bind(view)
-        binding = fragmentHomeBinding
+        binding = FragmentHomeBinding.bind(view)
 
         articleDB = Firebase.database.reference.child(DB_ARTICLES)
         // onViewCreated를 통해서 새롭게 View들을 그려주지만, articleList는 기존에 생성되어 있던 객체이기 떄문에
@@ -61,8 +60,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         articleDB.addChildEventListener(listener)
 
         articleAdapter = ArticleAdapter()
-        fragmentHomeBinding.articleRecyclerView.adapter = articleAdapter
+        binding.articleRecyclerView.adapter = articleAdapter
 
+        binding.btnAddArticle.setOnClickListener {
+            val intent = Intent(requireActivity(), AddArticleActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

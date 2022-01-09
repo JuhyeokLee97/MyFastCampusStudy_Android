@@ -19,4 +19,5 @@
     <color name="transparent">#00000000</color>
     <color name="gray">#cccccc</color>
     <color name="gray_2">#FFECECEC</color>
+    <color name="orange">#F27F35</color>
 </resources>
