@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myfastcampusstudy_android.R
 import com.example.myfastcampusstudy_android.databinding.FragmentHomeBinding
 import com.example.myfastcampusstudy_android.intermediate.DBKey.Companion.DB_ARTICLES
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ChildEventListener
@@ -21,6 +22,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var articleDB: DatabaseReference
     private lateinit var articleAdapter: ArticleAdapter
+    private lateinit var binding: FragmentHomeBinding
 
     private val articleList = mutableListOf<ArticleModel>()
     private val listener = object : ChildEventListener {
@@ -37,11 +39,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
         override fun onCancelled(error: DatabaseError) {}
     }
+
     private val auth: FirebaseAuth by lazy {
         Firebase.auth
     }
 
-    private lateinit var binding: FragmentHomeBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,8 +65,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.articleRecyclerView.adapter = articleAdapter
 
         binding.btnAddArticle.setOnClickListener {
-            val intent = Intent(requireActivity(), AddArticleActivity::class.java)
-            startActivity(intent)
+            if (auth.currentUser != null) {
+                val intent = Intent(requireContext(), AddArticleActivity::class.java)
+                startActivity(intent)
+            } else {
+                Snackbar.make(binding.root, "로그인 후 사용해주세요.", Snackbar.LENGTH_SHORT).show()
+            }
         }
 
     }
