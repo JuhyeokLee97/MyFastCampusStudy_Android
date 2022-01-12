@@ -1,12 +1,10 @@
 package com.example.myfastcampusstudy_android.intermediate.used_transaction.my_page
 
-import android.graphics.Color
-import android.os.Build
+
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.myfastcampusstudy_android.R
