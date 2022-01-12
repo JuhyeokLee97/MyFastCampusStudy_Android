@@ -7,7 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myfastcampusstudy_android.R
 import com.example.myfastcampusstudy_android.databinding.FragmentHomeBinding
+import com.example.myfastcampusstudy_android.intermediate.DBKey.Companion.CHILD_CHAT
 import com.example.myfastcampusstudy_android.intermediate.DBKey.Companion.DB_ARTICLES
+import com.example.myfastcampusstudy_android.intermediate.DBKey.Companion.DB_USERS
+import com.example.myfastcampusstudy_android.intermediate.used_transaction.chat_list.ChatItemModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -21,6 +24,7 @@ import com.google.firebase.ktx.Firebase
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var articleDB: DatabaseReference
+    private lateinit var userDB: DatabaseReference
     private lateinit var articleAdapter: ArticleAdapter
     private lateinit var binding: FragmentHomeBinding
 
@@ -49,6 +53,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
 
+        userDB = Firebase.database.reference.child(DB_USERS)
         articleDB = Firebase.database.reference.child(DB_ARTICLES)
         // onViewCreated를 통해서 새롭게 View들을 그려주지만, articleList는 기존에 생성되어 있던 객체이기 떄문에
         // 기존에 가지고 있던 아이템들을 가지고 있어서, `articleDB`에서 데이터를 가져오게 되면 중복이 발생한다.
@@ -61,7 +66,41 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
          */
         articleDB.addChildEventListener(listener)
 
-        articleAdapter = ArticleAdapter()
+        articleAdapter = ArticleAdapter(onItemClicked = { articleModel ->
+            if (auth.currentUser != null) { // 로그인 상태
+
+                if (auth.currentUser!!.uid != articleModel.sellerId) { // 구매자와 판매자가 다른 경우
+                    val chatRoom = ChatItemModel(
+                        buyerId = auth.currentUser!!.uid,
+                        sellerId = articleModel.sellerId,
+                        itemTitle = articleModel.title,
+                        key = System.currentTimeMillis()
+                    )
+
+                    userDB.child(auth.currentUser!!.uid)
+                        .child(CHILD_CHAT)
+                        .push()
+                        .setValue(chatRoom)
+
+                    userDB.child(articleModel.sellerId)
+                        .child(CHILD_CHAT)
+                        .push()
+                        .setValue(chatRoom)
+
+                    Snackbar.make(
+                        binding.root,
+                        "채팅방이 생성되었습니다. 채팅탭에서 확인해주세요.",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                } else { // 구매자와 판매자가 같은 경우
+                    Snackbar.make(binding.root, "내가 올린 아이템입니다.", Snackbar.LENGTH_SHORT).show()
+                }
+            } else { // 로그인이 안된 상태
+                Snackbar.make(binding.root, "로그인 후 사용해주세요.", Snackbar.LENGTH_SHORT).show()
+
+            }
+
+        })
         binding.articleRecyclerView.adapter = articleAdapter
 
         binding.btnAddArticle.setOnClickListener {

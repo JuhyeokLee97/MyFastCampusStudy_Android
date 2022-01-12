@@ -1,5 +1,6 @@
 package com.example.myfastcampusstudy_android.intermediate.used_transaction.my_page
 
+
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -102,9 +103,8 @@ class MyPageFragment : Fragment(R.layout.fragment_my_page) {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(requireActivity()) { task ->
                         if (task.isSuccessful) {
-                            Log.d("MyPageFragment", "auth.currentUser: ${auth.currentUser} ")
-                            Toast.makeText(context, "회원가입에 성공했습니다. 로그인 버튼을 눌러주세요", Toast.LENGTH_SHORT).show()
-
+                            successSignIn()
+                            Toast.makeText(context, "회원가입에 성공하여, 로그인 되었습니다.", Toast.LENGTH_SHORT).show()
                         } else {
                             Toast.makeText(
                                 context,

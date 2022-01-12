@@ -12,7 +12,8 @@ import com.bumptech.glide.Glide
 import com.example.myfastcampusstudy_android.databinding.ItemArticleBinding
 import java.util.*
 
-class ArticleAdapter : ListAdapter<ArticleModel, ArticleAdapter.ViewHolder>(diffUtil) {
+class ArticleAdapter(val onItemClicked:(ArticleModel) -> Unit) :
+    ListAdapter<ArticleModel, ArticleAdapter.ViewHolder>(diffUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             ItemArticleBinding.inflate(
@@ -44,6 +45,8 @@ class ArticleAdapter : ListAdapter<ArticleModel, ArticleAdapter.ViewHolder>(diff
                         .load(articleModel.imageUrl)
                         .into(ivThumbnail)
                 }
+
+                root.setOnClickListener { onItemClicked(articleModel) }
             }
         }
     }
