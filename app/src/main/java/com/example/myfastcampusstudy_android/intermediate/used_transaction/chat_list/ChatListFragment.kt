@@ -1,11 +1,13 @@
 package com.example.myfastcampusstudy_android.intermediate.used_transaction.chat_list
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.myfastcampusstudy_android.R
 import com.example.myfastcampusstudy_android.databinding.FragmentChatListBinding
 import com.example.myfastcampusstudy_android.intermediate.DBKey
+import com.example.myfastcampusstudy_android.intermediate.used_transaction.chat_room.ChatRoomActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -36,7 +38,6 @@ class ChatListFragment : Fragment(R.layout.fragment_chat_list) {
         initViews()
 
 
-
     }
 
     private fun initViews() {
@@ -53,10 +54,12 @@ class ChatListFragment : Fragment(R.layout.fragment_chat_list) {
             return
         }
 
-        chatItemAdapter = ChatItemAdapter(onItemClicked = {
-            // todo: 채팅방으로 이동 하느 코드
+        chatItemAdapter = ChatItemAdapter(onItemClicked = { chatItemModel ->
+            val intent = Intent(requireContext(), ChatRoomActivity::class.java)
+            intent.putExtra("chatKey", chatItemModel.key)
+            startActivity(intent)
         })
-        binding.rvChatItem.adapter= chatItemAdapter
+        binding.rvChatItem.adapter = chatItemAdapter
 
         chatDB = Firebase.database.reference.child(DBKey.DB_USERS).child(auth.currentUser!!.uid)
             .child(DBKey.CHILD_CHAT)
@@ -76,7 +79,6 @@ class ChatListFragment : Fragment(R.layout.fragment_chat_list) {
                 TODO("Not yet implemented")
             }
         })
-
 
 
     }

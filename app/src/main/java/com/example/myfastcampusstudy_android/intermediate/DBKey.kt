@@ -14,5 +14,6 @@ class DBKey {
         const val DB_ARTICLE_PHOTO = "article/photo"
         const val DB_USERS = "Users"
         const val CHILD_CHAT = "chat"
+        const val DB_CHATS = "Chats"
     }
 }
