@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myfastcampusstudy_android.databinding.ItemChatBinding
+import com.example.myfastcampusstudy_android.databinding.ItemChatListBinding
 
 class ChatItemAdapter(val onItemClicked: (ChatItemModel) -> Unit) :
     ListAdapter<ChatItemModel, ChatItemAdapter.ViewHolder>(diffUtil) {
 
-    inner class ViewHolder(val binding: ItemChatBinding) :
+    inner class ViewHolder(val binding: ItemChatListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ChatItemModel) {
             binding.apply {
@@ -25,7 +25,7 @@ class ChatItemAdapter(val onItemClicked: (ChatItemModel) -> Unit) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ItemChatBinding.inflate(
+            ItemChatListBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
