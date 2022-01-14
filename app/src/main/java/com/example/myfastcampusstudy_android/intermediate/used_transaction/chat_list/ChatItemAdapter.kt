@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myfastcampusstudy_android.databinding.ItemChatListBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class ChatItemAdapter(val onItemClicked: (ChatItemModel) -> Unit) :
     ListAdapter<ChatItemModel, ChatItemAdapter.ViewHolder>(diffUtil) {
@@ -15,7 +16,6 @@ class ChatItemAdapter(val onItemClicked: (ChatItemModel) -> Unit) :
         fun bind(item: ChatItemModel) {
             binding.apply {
                 tvRoomTitle.text = item.itemTitle
-
                 root.setOnClickListener {
                     onItemClicked(item)
                 }
