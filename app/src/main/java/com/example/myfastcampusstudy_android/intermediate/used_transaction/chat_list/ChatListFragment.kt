@@ -56,7 +56,7 @@ class ChatListFragment : Fragment(R.layout.fragment_chat_list) {
 
         chatItemAdapter = ChatItemAdapter(onItemClicked = { chatItemModel ->
             val intent = Intent(requireContext(), ChatRoomActivity::class.java)
-            intent.putExtra("chatKey", chatItemModel.key)
+            intent.putExtra("ChatKey", chatItemModel.key)
             startActivity(intent)
         })
         binding.rvChatItem.adapter = chatItemAdapter

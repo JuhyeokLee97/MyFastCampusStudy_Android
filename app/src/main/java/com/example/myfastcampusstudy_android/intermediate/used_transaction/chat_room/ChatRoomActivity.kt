@@ -61,7 +61,7 @@ class ChatRoomActivity : AppCompatActivity() {
 
     private fun initChatRecyclerView() {
         binding.apply {
-            rvChat
+            rvChat.adapter = adapter
         }
     }
 
@@ -72,6 +72,8 @@ class ChatRoomActivity : AppCompatActivity() {
                     senderId = auth.currentUser!!.uid,
                     message = etMessage.text.toString()
                 )
+
+                chatDB.push()?.setValue(chatModel)
             }
         }
     }
