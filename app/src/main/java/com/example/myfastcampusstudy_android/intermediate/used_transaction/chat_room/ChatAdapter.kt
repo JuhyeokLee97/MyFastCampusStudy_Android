@@ -1,19 +1,32 @@
 package com.example.myfastcampusstudy_android.intermediate.used_transaction.chat_room
 
+import android.graphics.Color
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myfastcampusstudy_android.databinding.ItemChatBinding
+import com.google.firebase.auth.FirebaseAuth
 
-class ChatAdapter : ListAdapter<ChatModel, ChatAdapter.ViewHolder>(diffUtil) {
+class ChatAdapter(val auth: FirebaseAuth) :
+    ListAdapter<ChatModel, ChatAdapter.ViewHolder>(diffUtil) {
 
     inner class ViewHolder(var binding: ItemChatBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ChatModel) {
             binding.apply {
                 tvMessage.text = item.message
-                tvSenderId.text = item.senderId
+                tvSenderId.text = item.senderId.substring(0, 5)
+
+                if (item.senderId != auth.currentUser!!.uid) {
+                    tvMessage.gravity = Gravity.END
+                    tvMessage.setBackgroundColor(Color.LTGRAY)
+                    tvMessage.setTextColor(Color.BLACK)
+
+                    tvSenderId.gravity = Gravity.END
+                }
             }
         }
     }

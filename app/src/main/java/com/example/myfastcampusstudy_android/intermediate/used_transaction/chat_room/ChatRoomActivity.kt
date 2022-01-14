@@ -21,7 +21,7 @@ class ChatRoomActivity : AppCompatActivity() {
     }
 
     private val chatList = mutableListOf<ChatModel>()
-    private val adapter = ChatAdapter()
+    private lateinit var chatAdapter: ChatAdapter
     private lateinit var chatDB: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +43,8 @@ class ChatRoomActivity : AppCompatActivity() {
                 chatModel ?: return
 
                 chatList.add(chatModel)
-                adapter.submitList(chatList)
-                adapter.notifyDataSetChanged()
+                chatAdapter.submitList(chatList)
+                chatAdapter.notifyDataSetChanged()
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
@@ -60,8 +60,9 @@ class ChatRoomActivity : AppCompatActivity() {
     }
 
     private fun initChatRecyclerView() {
+        chatAdapter = ChatAdapter(auth)
         binding.apply {
-            rvChat.adapter = adapter
+            rvChat.adapter = chatAdapter
         }
     }
 
