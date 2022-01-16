@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/fragment_player_scene">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainContainer"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/orange" />
+
+    <ImageView
+        android:id="@+id/player_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/mainContainer"
+        app:layout_constraintStart_toStartOf="@id/mainContainer"
+        app:layout_constraintTop_toTopOf="@id/mainContainer" />
+
+    <ImageView
+        android:id="@+id/btn_bottom_player_control"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="@id/mainContainer"
+        app:layout_constraintEnd_toEndOf="@id/mainContainer"
+        app:layout_constraintTop_toTopOf="@id/mainContainer" />
+
+    <TextView
+        android:id="@+id/tv_bottom_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="@id/btn_bottom_player_control"
+        app:layout_constraintEnd_toStartOf="@id/btn_bottom_player_control"
+        app:layout_constraintStart_toEndOf="@id/player_view"
+        app:layout_constraintTop_toTopOf="@id/btn_bottom_player_control" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainContainer" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

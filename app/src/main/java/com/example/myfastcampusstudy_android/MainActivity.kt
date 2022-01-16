@@ -9,6 +9,7 @@ import com.example.myfastcampusstudy_android.basic.BasicActivity
 import com.example.myfastcampusstudy_android.databinding.ActivityMainBinding
 import com.example.myfastcampusstudy_android.intermediate.IntermediateActivity
 import com.example.myfastcampusstudy_android.intermediate.abnb.AbnbMainActivity
+import com.example.myfastcampusstudy_android.upper_intermediate.UpperIntermediateActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -25,6 +26,8 @@ class MainActivity : AppCompatActivity() {
     private fun initViews() {
         initBasicButton()
         initIntermediateButton()
+        initUpperIntermediateButton()
+
     }
 
     private fun initBasicButton() {
@@ -37,6 +40,13 @@ class MainActivity : AppCompatActivity() {
     private fun initIntermediateButton() {
         binding.btnIntermediateProject.setOnClickListener {
             val intent = Intent(this, IntermediateActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun initUpperIntermediateButton() {
+        binding.btnUpperIntermediateProject.setOnClickListener {
+            val intent = Intent(this, UpperIntermediateActivity::class.java)
             startActivity(intent)
         }
     }

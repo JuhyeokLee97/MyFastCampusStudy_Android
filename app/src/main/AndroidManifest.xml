@@ -16,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFastCampusStudy_Android">
         <activity
+            android:name=".upper_intermediate.UpperIntermediateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".upper_intermediate.youtube.YoutubeMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".intermediate.used_transaction.chat_room.ChatRoomActivity"
             android:exported="false" />
         <activity
