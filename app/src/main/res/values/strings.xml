@@ -44,6 +44,7 @@
     <!-- Home Activity -->
     <string name="text_project_level_basic">BASIC</string>
     <string name="text_project_level_intermediate">INTERMEDIATE</string>
+    <string name="text_project_level_upper_intermediate">UPPER INTERMEDIATE</string>
 
 
 </resources>

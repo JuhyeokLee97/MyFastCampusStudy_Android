@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:textSize="35sp"
+        android:textSize="30sp"
         android:padding="20dp"
         android:text="@string/text_project_level_basic"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,9 +30,24 @@
         android:padding="20dp"
         android:text="@string/text_project_level_intermediate"
         android:textColor="@color/white"
-        android:textSize="35sp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="@id/btnBasicProject"
         app:layout_constraintStart_toStartOf="@id/btnBasicProject"
         app:layout_constraintTop_toBottomOf="@id/btnBasicProject" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnUpperIntermediateProject"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#6DDD72"
+        android:padding="20dp"
+        android:text="@string/text_project_level_upper_intermediate"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@id/btnBasicProject"
+        app:layout_constraintStart_toStartOf="@id/btnBasicProject"
+        app:layout_constraintTop_toBottomOf="@id/btnIntermediateProject" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
