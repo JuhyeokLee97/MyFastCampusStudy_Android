@@ -2,6 +2,7 @@
 <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/playerMotionLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/fragment_player_scene">
@@ -19,6 +20,7 @@
         android:id="@+id/player_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/green"
         app:layout_constraintBottom_toBottomOf="@id/mainContainer"
         app:layout_constraintStart_toStartOf="@id/mainContainer"
         app:layout_constraintTop_toTopOf="@id/mainContainer" />
@@ -34,7 +36,7 @@
 
     <TextView
         android:id="@+id/tv_bottom_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="12dp"
