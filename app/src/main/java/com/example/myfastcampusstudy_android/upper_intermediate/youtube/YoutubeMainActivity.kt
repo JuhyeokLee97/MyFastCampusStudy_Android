@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import com.example.myfastcampusstudy_android.R
 import com.example.myfastcampusstudy_android.databinding.ActivityYoutubeMainBinding
+import com.example.myfastcampusstudy_android.upper_intermediate.youtube.adapter.VideoAdapter
 import com.example.myfastcampusstudy_android.upper_intermediate.youtube.dto.VideoDto
 import com.example.myfastcampusstudy_android.upper_intermediate.youtube.service.VideoService
 import retrofit2.Call
@@ -15,6 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class YoutubeMainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityYoutubeMainBinding
+    private lateinit var videoAdapter: VideoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +24,7 @@ class YoutubeMainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initPlayerFragment()
+        initView()
 
     }
 
@@ -30,6 +33,18 @@ class YoutubeMainActivity : AppCompatActivity() {
             .replace(R.id.fragment_container, PlayerFragment())
             .commit()
     }
+
+    private fun initView() {
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        videoAdapter = VideoAdapter()
+        binding.recyclerViewMain.adapter = videoAdapter
+        getVideoList()
+    }
+
+
 
     private fun getVideoList(){
         val retrofit = Retrofit.Builder()
@@ -47,6 +62,7 @@ class YoutubeMainActivity : AppCompatActivity() {
                         }
                         response.body()?.let {
                             Log.d("YoutubeMainActivity", "onResponse: ${it.videos}")
+                            videoAdapter.submitList(it.videos)
                         }
                     }
 
