@@ -16,6 +16,7 @@ class VideoAdapter : ListAdapter<VideoModel, ViewHolder>(diffUtil) {
             binding.apply {
                 tvTitle.text = item.title
                 tvSubtitle.text = item.subtitle
+
                 Glide.with(ivThumbnail.context)
                     .load(item.thumb)
                     .into(ivThumbnail)
