@@ -57,7 +57,7 @@ class YoutubeMainActivity : AppCompatActivity() {
                 .enqueue(object : Callback<VideoDto>{
                     override fun onResponse(call: Call<VideoDto>, response: Response<VideoDto>) {
                         if (response.isSuccessful.not()){
-                            Log.d("YoutubeMainActivity", "onResponse: Response Fail")
+                            Log.d("YoutubeMainActivity/", "onResponse: Response Fail")
                             return
                         }
                         response.body()?.let {
@@ -67,7 +67,7 @@ class YoutubeMainActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<VideoDto>, t: Throwable) {
-                        // 예외처리
+                        Log.d("YoutubeMainActivity", "onFailure: $t")
                     }
                 })
         }
