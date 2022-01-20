@@ -39,7 +39,11 @@ class YoutubeMainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        videoAdapter = VideoAdapter()
+        videoAdapter = VideoAdapter(callback = {url, title ->
+            supportFragmentManager.fragments.find{it is PlayerFragment}?.let{
+                (it as PlayerFragment).play(url, title)
+            }
+        })
         binding.recyclerViewMain.adapter = videoAdapter
         getVideoList()
     }

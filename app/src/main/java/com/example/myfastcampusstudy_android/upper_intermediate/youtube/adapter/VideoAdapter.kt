@@ -10,7 +10,7 @@ import com.example.myfastcampusstudy_android.databinding.ItemVideoBinding
 import com.example.myfastcampusstudy_android.upper_intermediate.youtube.adapter.VideoAdapter.ViewHolder
 import com.example.myfastcampusstudy_android.upper_intermediate.youtube.model.VideoModel
 
-class VideoAdapter : ListAdapter<VideoModel, ViewHolder>(diffUtil) {
+class VideoAdapter(val callback: (String, String) -> Unit) : ListAdapter<VideoModel, ViewHolder>(diffUtil) {
     inner class ViewHolder(var binding: ItemVideoBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: VideoModel) {
             binding.apply {
@@ -20,6 +20,10 @@ class VideoAdapter : ListAdapter<VideoModel, ViewHolder>(diffUtil) {
                 Glide.with(ivThumbnail.context)
                     .load(item.thumb)
                     .into(ivThumbnail)
+
+                binding.root.setOnClickListener {
+                    callback(item.sources, item.title)
+                }
             }
         }
     }
