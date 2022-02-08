@@ -22,6 +22,7 @@
 ## MotionLayout
 ### 정의
 <p>
+ 
 **MotionLayout**은 앱에서 모션과 위젯 애니메이션을 관리하는 데 사용할 수 있는 레이아웃 유형이다. **MotionLayout**은 **ConstraintLayout**의 서브클래스이며 ConstraintLayout의 다양한 레이아웃 기능을 기초로 한다. **ConstraintLayout** 라이브러리의 일부인 **MotionLayout**은 지원 라이브러리로 사용가능하며, **API Level 14**와 호환된다.
 </p>
 <p align="center">
