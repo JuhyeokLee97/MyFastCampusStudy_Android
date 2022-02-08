@@ -27,7 +27,9 @@
 </p>
 
 <p align="center">
+ 
  <img src="https://developer.android.com/images/training/constraint-layout/motion-simple.gif?hl=ko"/>
+ 
  **그림.** 기본 터치 컨트롤 모션
  </p>
  
