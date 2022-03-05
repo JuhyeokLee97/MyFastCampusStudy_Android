@@ -49,5 +49,19 @@
         app:layout_constraintStart_toStartOf="@id/btnBasicProject"
         app:layout_constraintTop_toBottomOf="@id/btnIntermediateProject" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAdvancedProject"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#B52222"
+        android:padding="20dp"
+        android:text="ADVANCED"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@id/btnUpperIntermediateProject"
+        app:layout_constraintStart_toStartOf="@id/btnUpperIntermediateProject"
+        app:layout_constraintTop_toBottomOf="@id/btnUpperIntermediateProject" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
