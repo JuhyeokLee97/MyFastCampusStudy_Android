@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.widget.AppCompatButton
+import com.example.myfastcampusstudy_android.advanced.ToDoActivity
 import com.example.myfastcampusstudy_android.basic.BasicActivity
 import com.example.myfastcampusstudy_android.databinding.ActivityMainBinding
 import com.example.myfastcampusstudy_android.intermediate.IntermediateActivity
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initViews()
+        setListeners()
     }
 
     private fun initViews() {
@@ -28,6 +30,17 @@ class MainActivity : AppCompatActivity() {
         initIntermediateButton()
         initUpperIntermediateButton()
 
+    }
+
+    private fun setListeners() {
+        setListenerToAdvancedButton()
+    }
+
+    private fun setListenerToAdvancedButton() {
+        binding.btnAdvancedProject.setOnClickListener {
+            val intent = Intent(this, ToDoActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initBasicButton() {
