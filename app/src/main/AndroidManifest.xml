@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyFastCampusStudy_Android">
+        android:theme="@style/Theme.MyFastCampusStudy_Android"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".basic.simple_web_browser.SimpleWebBrowserActivity"
             android:exported="false" />
