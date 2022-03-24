@@ -46,6 +46,7 @@
     <string name="text_project_level_intermediate">INTERMEDIATE</string>
     <string name="text_project_level_upper_intermediate">UPPER INTERMEDIATE</string>
     <string name="text_home">홈</string>
+    <string name="simple_web_browser">심플 웹 브라우저</string>
 
 
 </resources>

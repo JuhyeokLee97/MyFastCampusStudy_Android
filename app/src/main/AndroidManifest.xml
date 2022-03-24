@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFastCampusStudy_Android">
         <activity
+            android:name=".basic.simple_web_browser.SimpleWebBrowserActivity"
+            android:exported="false" />
+        <activity
             android:name=".advanced.ToDoActivity"
             android:exported="false" />
         <activity
