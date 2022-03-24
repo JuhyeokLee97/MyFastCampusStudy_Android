@@ -13,6 +13,7 @@ import com.example.myfastcampusstudy_android.basic.picture_frame.PictureFrameMai
 import com.example.myfastcampusstudy_android.basic.pomodoro_timer.PomodoroTimerMainActivity
 import com.example.myfastcampusstudy_android.basic.recorder.RecorderMainActivity
 import com.example.myfastcampusstudy_android.basic.secret_diary.SecretDiaryMainActivity
+import com.example.myfastcampusstudy_android.basic.simple_web_browser.SimpleWebBrowserActivity
 
 class BasicActivity : AppCompatActivity() {
     lateinit var btnMoveToCalculationBmiMainActivity: AppCompatButton
@@ -21,6 +22,7 @@ class BasicActivity : AppCompatActivity() {
     lateinit var btnMoveToPictureFrameMainActivity: AppCompatButton
     lateinit var btnMoveToPomodoroTimerMainActivity: AppCompatButton
     lateinit var btnMoveToRecorderMainActivity: AppCompatButton
+    lateinit var btnMoveToSimpleWebBrowserActivity: AppCompatButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,5 +72,9 @@ class BasicActivity : AppCompatActivity() {
             startActivity(Intent(this, RecorderMainActivity::class.java))
         }
 
+        btnMoveToSimpleWebBrowserActivity = findViewById(R.id.btnMoveToSimpleWebBrowser)
+        btnMoveToSimpleWebBrowserActivity.setOnClickListener {
+            startActivity(Intent(this, SimpleWebBrowserActivity::class.java))
+        }
     }
 }
