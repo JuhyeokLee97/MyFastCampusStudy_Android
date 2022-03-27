@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
+import android.webkit.URLUtil
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -47,7 +48,12 @@ class SimpleWebBrowserActivity : AppCompatActivity() {
         binding.apply {
             etSearch.setOnEditorActionListener { view, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    webView.loadUrl(view.text.toString())
+                    val loadingUrl = view.text.toString()
+                    if (URLUtil.isNetworkUrl(loadingUrl)) {
+                        webView.loadUrl(loadingUrl)
+                    } else {
+                        webView.loadUrl("http://$loadingUrl")
+                    }
                 }
                 return@setOnEditorActionListener false
             }
@@ -75,6 +81,11 @@ class SimpleWebBrowserActivity : AppCompatActivity() {
             binding.apply {
                 refreshLayout.isRefreshing = false
                 progressBar.hide()
+
+                btnGoBack.isEnabled = webView.canGoBack()
+                btnGoForward.isEnabled = webView.canGoForward()
+
+                etSearch.setText(url)
             }
 
         }

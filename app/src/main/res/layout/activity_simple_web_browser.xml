@@ -35,6 +35,7 @@
             android:imeOptions="actionDone"
             android:inputType="textUri"
             android:paddingHorizontal="16dp"
+            android:selectAllOnFocus="true"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnGoBack"
