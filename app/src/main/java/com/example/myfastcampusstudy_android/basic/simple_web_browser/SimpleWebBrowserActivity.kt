@@ -3,6 +3,7 @@ package com.example.myfastcampusstudy_android.basic.simple_web_browser
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.example.myfastcampusstudy_android.databinding.ActivitySimpleWebBrowserBinding
 
@@ -50,9 +51,19 @@ class SimpleWebBrowserActivity : AppCompatActivity() {
             btnGoBack.setOnClickListener { webView.goBack() }
             btnGoForward.setOnClickListener { webView.goForward() }
             btnGoHome.setOnClickListener { webView.loadUrl(DEFAULT_URL) }
+            refreshLayout.setOnRefreshListener {
+                webView.reload()
+            }
         }
     }
 
+    inner class WebViewClient: android.webkit.WebViewClient(){
+        override fun onPageFinished(view: WebView?, url: String?) {
+            super.onPageFinished(view, url)
+
+            binding.refreshLayout.isRefreshing = false
+        }
+    }
     companion object {
         private const val DEFAULT_URL = "http://www.google.com"
     }
