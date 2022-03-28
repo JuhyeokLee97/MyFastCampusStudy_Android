@@ -17,6 +17,9 @@
         android:theme="@style/Theme.MyFastCampusStudy_Android"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".intermediate.push_alarm.PushAlarmReceiverActivity"
+            android:exported="false" />
+        <activity
             android:name=".basic.simple_web_browser.SimpleWebBrowserActivity"
             android:exported="false" />
         <activity
