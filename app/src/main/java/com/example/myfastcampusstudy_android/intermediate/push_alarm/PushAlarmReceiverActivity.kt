@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.myfastcampusstudy_android.R
 import com.example.myfastcampusstudy_android.databinding.ActivityPushAlarmReceiverBinding
+import com.google.firebase.messaging.FirebaseMessaging
 
 class PushAlarmReceiverActivity : AppCompatActivity() {
 
@@ -18,5 +19,15 @@ class PushAlarmReceiverActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+        initFirebase()
+    }
+
+    private fun initFirebase(){
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    binding.tvFirebaseToken.text = task.result
+                }
+            }
     }
 }
