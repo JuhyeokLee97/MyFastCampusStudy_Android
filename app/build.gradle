@@ -69,6 +69,9 @@ dependencies {
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:29.0.3')
 
+    // Firebase Cloud Message
+    implementation "com.google.firebase:firebase-messaging-ktx"
+
     // firebase auth
     implementation 'com.google.firebase:firebase-auth-ktx'
     // firebase RealTime DB
